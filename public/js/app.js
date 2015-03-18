@@ -1,27 +1,25 @@
 
 /* ARTICLE APP */
 
-var appArticle = angular.module('articleApp', ['smart-table','angularFileUpload']);
+var appArticle = angular.module('articleApp', ['smart-table','angularFileUpload', 'ui.sortable']);
 
 appArticle.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');
 });
 
-appArticle.filter('html', ['$sce', function ($sce) {
-    return function (text) {
-        return $sce.trustAsHtml(text);
-    };
-}])
-
 appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileUploader', '$sce', function($scope, $http, $filter, FileUploader, $sce) {
 
     $scope.loading = false;
     $scope.articles = [];
+    $scope.articleImages = [];
 
     var uploadID = 0;
     var rep = "";
-    var urlList = "";
+
+    var weightImg = 0;
+    var urlImg = "";
+    var nameImg = "";
 
     /* create or edit ? */
 
@@ -51,16 +49,25 @@ appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileU
 
     uploader.onBeforeUploadItem = function(item) {
         item.url = 'upload.php?article=' + uploadID;
-        console.info('onBeforeUploadItem', item);
     };
 
     uploader.onCompleteAll = function() {
-        console.info('onCompleteAll');
         $scope.uploader.clearQueue();
     };
 
-    console.info('uploader', uploader);
 
+    /* sortable images options */
+
+    $scope.sortableOptions = {
+        'ui-floating': true
+    };
+
+    var fixHelper = function(e, ui) {
+      ui.children().each(function() {
+        $(this).width($(this).width());
+      });
+      return ui;
+    };
 
     /* articles */
 
@@ -71,7 +78,7 @@ appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileU
             $scope.articles = data;
             $scope.loading = false;
         });
-    }
+    };
 
     $scope.addArticle = function() {
         $scope.loading = true;
@@ -91,7 +98,7 @@ appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileU
             success(function(data, status, headers, config) {
                 $scope.articles = data;
                 uploadID = $scope.articles[$scope.articles.length - 1].id;
-                $scope.uploader.uploadAll();
+                $scope.uploadImages();
             });
             $scope.article = '';
             $scope.loading = false;
@@ -113,8 +120,11 @@ appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileU
         $scope.article.price = article.price;
         $scope.article.sale = article.sale;
         $scope.article.tags = article.tags;
-        $scope.imageList(article.id);
-    }
+        $http.get('/api/images/' + article.id)
+        .success(function(data, status, headers, config){
+            $scope.articleImages = data;
+        });
+    };
 
     $scope.updateSaveArticle = function(article) {
         $http.put('/api/articles/' + article.id, {
@@ -134,13 +144,16 @@ appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileU
                 $scope.articles = data;
             });
             uploadID = $scope.article.id;
-            $scope.uploader.uploadAll();
+            $scope.sortImages();
+            $scope.uploadImages();
+            $http.get('/api/images/' + article.id)
+            .success(function(data, status, headers, config){
+                $scope.articleImages = data;
+            });
             $scope.loading = false;
-            $scope.create = true;
-            $scope.article = "";
-        });;
+            var confirmSave = alert("Your changes have been saved.");
+        });
     };
-
 
     $scope.deleteArticle = function(article) {
         var confirmDelete = confirm("Are you sure you want to delete this article from the list?");
@@ -153,13 +166,14 @@ appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileU
                     $scope.articles = data;
                 });
                 $scope.loading = false;
-            });;
+            });
         }
     };
 
     $scope.switchCreate = function() {
         $scope.create = true;
         $scope.uploader.clearQueue();
+        $scope.articleImages = [];
         $scope.article.title = "";
         $scope.article.artist = "";
         $scope.article.origin = "";
@@ -170,15 +184,40 @@ appArticle.controller('articleController', ['$scope', '$http', '$filter', 'FileU
         $scope.article.price = "";
         $scope.article.sale = "";
         $scope.article.tags = "";
+        $scope.article = "";
+    };
+
+    $scope.sortImages = function(){
+        for(i=0; i < $scope.articleImages.length; i++){
+            $scope.articleImage = $scope.articleImages[i];
+            $scope.articleImage.weight = i + 1;
+            $http.put('/api/images/' + $scope.articleImage.id, {
+                weight: $scope.articleImage.weight
+            }).success(function(data, status, headers, config) {});
+        }
+    };
+
+    $scope.uploadImages = function() {
+        for(i = 0; i < $scope.uploader.queue.length; i++){
+            weightImg = 1000;
+            nameImg = $scope.uploader.queue[i].file.name;
+            urlImg = "/img/articles/" + uploadID + "/" + nameImg;
+            $http.post('/api/images', {
+                articleID: uploadID,
+                weight: weightImg,
+                name: nameImg,
+                url: urlImg,
+                visible: true
+            }).success(function() {});
+        }
+        $scope.uploader.uploadAll();
+    };
+
+    $scope.hoverImage = function(articleImage) {
+
     }
 
-    $scope.imageList = function(id) {
-        urlList = 'imageList.php?article=' + id;
-        $http.get(urlList).
-        success(function(data, status, headers, config) {
-            $scope.imagelist = data;
-        });
-    }
+
 
     $scope.init();
 

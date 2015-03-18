@@ -12,6 +12,7 @@
         </div>
         <div class="panel-body">
             <div class="col-md-6">
+                <h4>Information</h4>
                 <h6>(Mandatory fields are marked with a *)</h6>
                 <form name="ArticleForm">
                     <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.title" placeholder="Title*" name="title" required></div></div>
@@ -80,9 +81,20 @@
                         <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                     </div>
                 </div>
-                <!--div ng-bind-html="imagelist | html">
 
-                </div-->
+
+                <div class="image_list_admin">
+                    <span ng-show="!create"><hr>
+                    <h4>Album</h4>
+                    <h6>(Drag n drop / Place cover image in 1st place)</h6></span>
+                    <ul ui-sortable="sortableOptions" ng-model="articleImages">
+                        <li ng-repeat="articleImage in articleImages" ng-mouseover="hoverImage(articleImage)" class="image_elem_admin">
+                            <img ng-src="<% articleImage.url %>">
+                            <i class="glyphicon glyphicon-remove-sign"></i>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
             <div class="col-xs-12" align="center">
                 <hr>

@@ -47,3 +47,38 @@ body{
 .table-header.st-sort-descent:before {
     content: '\25BC';
 }
+
+.image_list_admin li{
+    display: inline;
+    float: left;
+    padding: 2px;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.image_elem_admin{
+    opacity: 1;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.image_elem_admin:hover{
+    opacity: 0.5;
+}
+
+.image_elem_admin img{
+    height: 80px;
+}
+
+.image_elem_admin i{
+    font-size: 18px;
+    position: absolute;
+    display: none;
+    top: 5px;
+    right: 5px;
+}
+
+.image_elem_admin:hover i{
+    display: block;
+}

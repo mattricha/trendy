@@ -15,6 +15,8 @@ Route::get('/', 'HomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+Route::get('articleapp','ArticleAppController@index');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -22,4 +24,4 @@ Route::controllers([
 
 Route::resource('api/articles','ArticlesController');
 
-Route::get('articleapp','ArticleAppController@index');
+Route::resource('api/images','ImagesController');

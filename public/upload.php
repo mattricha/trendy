@@ -1,4 +1,5 @@
 <?php
+
 if (!empty( $_FILES )) {
 
     $articleID = $_GET['article'];
@@ -14,6 +15,7 @@ if (!empty( $_FILES )) {
     }
 
     move_uploaded_file( $tempPath, $uploadPath );
+
     $answer = array( 'answer' => 'File transfer completed' );
     $json = json_encode( $answer );
     echo $json;
