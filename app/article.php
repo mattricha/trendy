@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class article extends Model {
 
-	protected $fillable = array('title', 'artist', 'origin', 'description', 'dimensions', 'color', 'stock', 'price', 'sale', 'tags');
+    protected $table = 'articles';
+
+	protected $fillable = array('artistID', 'typeID', 'subtypeID', 'templateID', 'title', 'description', 'dimensions', 'size', 'style', 'color', 'stock', 'price', 'sale', 'tags', 'likes', 'dateAdded');
 
 }

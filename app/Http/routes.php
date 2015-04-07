@@ -11,17 +11,26 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-
-Route::get('home', 'HomeController@index');
-
-Route::get('articleapp','ArticleAppController@index');
-
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
 ]);
 
-Route::resource('api/articles','ArticlesController');
+Route::group(['middleware' => 'admin'], function(){
+    Route::get('articleapp','ArticleAppController@index');
+    Route::resource('api/articles','ArticlesController');
+    Route::resource('api/images','ImagesController');
+    Route::post('upload/{articleID}','UploadController@store');
+    Route::resource('api/articletypes','ArticletypesController');
+    Route::resource('api/articlesubtypes','ArticlesubtypesController');
+    Route::resource('api/artists','ArtistsController');
+    Route::resource('api/comments','CommentsController');
+    Route::resource('api/saleshistory','SaleshistoryController');
+    Route::resource('api/templates','TemplatesController');
+    Route::resource('api/users','UsersController');
+});
 
-Route::resource('api/images','ImagesController');
+Route::get('/', 'HomeController@index');
+Route::get('home', 'HomeController@index');
+
+

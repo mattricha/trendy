@@ -15,16 +15,22 @@ class CreateArticleTable extends Migration {
 		Schema::create('articles', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('artistID');
+			$table->integer('typeID');
+			$table->integer('subtypeID');
+			$table->integer('templateID');
 			$table->string('title');
-			$table->string('artist');
-			$table->string('origin');
 			$table->text('description');
 			$table->string('dimensions');
+			$table->string('size');
+			$table->string('style');
 			$table->string('color');
 			$table->integer('stock');
 			$table->decimal('price', 8, 2);
 			$table->boolean('sale');
 			$table->string('tags');
+			$table->integer('likes');
+			$table->timestamp('dateAdded');
 			$table->timestamps();
 		});
 	}
@@ -36,7 +42,10 @@ class CreateArticleTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('articles');
+		Schema::table('articles', function(Blueprint $table)
+		{
+			Schema::drop('articles');
+		});
 	}
 
 }

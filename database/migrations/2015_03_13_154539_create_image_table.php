@@ -19,6 +19,9 @@ class CreateImageTable extends Migration {
 			$table->integer('weight');
 			$table->string('name');
 			$table->string('url');
+			$table->string('url100x100');
+			$table->string('url200x200');
+			$table->string('url500W');
 			$table->boolean('visible');
 			$table->timestamps();
 		});

@@ -1,0 +1,84 @@
+body{
+    padding-top:100px;
+    background-image: url('/img/bg/debut_light.png');
+    background-repeat: repeat;
+}
+
+.navbar-effect{
+    -moz-box-shadow: 0px 0px 20px 5px #ebebeb;
+    -webkit-box-shadow: 0px 0px 20px 5px #ebebeb;
+    -o-box-shadow: 0px 0px 20px 5px #ebebeb;
+    box-shadow: 0px 0px 20px 5px #ebebeb;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#ebebeb, Direction=NaN, Strength=20);
+}
+.panel-trendy{
+    padding: 30px;
+    margin: 30px;
+    background-color: #eeeeee;
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border: 1px solid #dedede;
+    -moz-box-shadow: 0px 0px 20px 5px #ebebeb;
+    -webkit-box-shadow: 0px 0px 20px 5px #ebebeb;
+    -o-box-shadow: 0px 0px 20px 5px #ebebeb;
+    box-shadow: 0px 0px 20px 5px #ebebeb;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#ebebeb, Direction=NaN, Strength=20);
+}
+
+/* column sort arrow */
+
+.table-date{
+    font-size: 10px;
+}
+
+.table-header{
+    cursor: pointer;
+}
+
+.table-header:before {
+    content: '\25BA';
+}
+
+.table-header.st-sort-ascent:before {
+    content: '\25B2';
+}
+
+.table-header.st-sort-descent:before {
+    content: '\25BC';
+}
+
+.list_admin li{
+    display: inline;
+    float: left;
+    padding: 2px;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.image_elem_admin{
+    opacity: 1;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.image_elem_admin:hover{
+    opacity: 0.5;
+}
+
+.image_elem_admin img{
+    height: 80px;
+}
+
+.image_elem_admin i{
+    font-size: 18px;
+    position: absolute;
+    display: none;
+    top: 5px;
+    right: 5px;
+}
+
+.image_elem_admin:hover i{
+    display: block;
+}

@@ -1,18 +1,20 @@
+<?php
+	$encrypter = app('Illuminate\Encryption\Encrypter');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="csrf-token" content="{{ $encrypter->encrypt(csrf_token()) }}" />
+
+
 	<title>Trendy</title>
 
-	<!--link href="/css/app.css" rel="stylesheet"-->
-	<link href="/css/trendy.css" rel="stylesheet">
-
-	<!-- Fonts & UI-->
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link href="/assets/css/app.min.css" rel="stylesheet">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,18 +38,24 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="/articleapp">Articles</a></li>
+					@if (Auth::check())
+						@if (Auth::user()->type == 'admin')
+							<li><a href="/articleapp"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;Admin</a></li>
+						@endif
+					@endif
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
-						<li><a href="/auth/login">Login</a></li>
-						<li><a href="/auth/register">Register</a></li>
+						<li><a href="/auth/login"><i class="glyphicon glyphicon-user"></i>&nbsp;Login</a></li>
+						<li><a href="/auth/register"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Register</a></li>
 					@else
+						<li><a href=""><i class="glyphicon glyphicon-star"></i>&nbsp;Wishlist</a></li>
+						<li><a href=""><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Cart</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-user"></i>&nbsp;{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/auth/logout">Logout</a></li>
+								<li><a href="/auth/logout"><i class="glyphicon glyphicon-log-out"></i>&nbsp;Logout</a></li>
 							</ul>
 						</li>
 					@endif
@@ -60,28 +68,7 @@
 		@yield('content')
 	</div>
 
-	<!-- JQuery -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-
-	<!-- AngularJS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
-	<script src="/js/app.js"></script>
-
-	<!-- Scripts -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
-
-	<!-- Angular UI sortable -->
-	<script src="/js/sortable.js"></script>
-
-	<!-- smart table -->
-	<script src="/js/smart-table.min.js"></script>
-
-	<!-- file upload -->
-	<script src="/js/angular-file-upload.min.js"></script>
-	<script src="/js/console-sham.min.js"></script>
+	<script src="/assets/js/app.min.js"></script>
 
 </body>
 </html>

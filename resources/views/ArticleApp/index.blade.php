@@ -1,9 +1,9 @@
 @extends('app')
 @section('content')
 <div class="container" ng-app="articleApp" ng-controller="articleController">
-    <h1>Article App</h1><hr>
+    <h1>Article Manager</h1><hr>
 
-    <div class="row" ng-show="!create"><button class="btn btn-primary btn-md" ng-click="switchCreate()"><i class="glyphicon glyphicon-plus"></i> Add article</button></div>
+    <div class="row" ng-show="!create"><button class="btn btn-primary btn-md" ng-click="switchCreate()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add article</button></div>
 <br>
     <div class="row panel panel-primary">
         <div class="panel-heading">
@@ -83,7 +83,7 @@
                 </div>
 
 
-                <div class="image_list_admin">
+                <div class="list_admin">
                     <span ng-show="!create"><hr>
                     <h4>Album</h4>
                     <h6>(Drag n drop / Place cover image in 1st place)</h6></span>
@@ -98,8 +98,8 @@
             </div>
             <div class="col-xs-12" align="center">
                 <hr>
-                <div class="row" ng-show="create"><button class="btn btn-primary btn-md" ng-click="addArticle()" ng-disabled="ArticleForm.$invalid">Add</button></div>
-                <div class="row" ng-show="!create"><button class="btn btn-primary btn-md" ng-click="updateSaveArticle(article)" ng-disabled="ArticleForm.$invalid">Save</button></div>
+                <div class="row" ng-show="create"><button class="btn btn-primary btn-md" ng-click="addArticle()" ng-disabled="ArticleForm.$invalid" type="submit"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button></div>
+                <div class="row" ng-show="!create"><button class="btn btn-primary btn-md" ng-click="updateSaveArticle(article)" ng-disabled="ArticleForm.$invalid" type="submit"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button></div>
             </div>
         </div>
     </div>
@@ -116,8 +116,10 @@
                     <thead>
                         <tr>
                             <th colspan="6">
-                                <input st-search placeholder="Search..." class="input-md form-control" type="search"/>
-                                <br>
+                                <ul class="list-inline">
+                                    <li><i class="glyphicon glyphicon-search"></i></li>
+                                    <li><input st-search placeholder="Search..." class="input-md form-control" type="search"/></li>
+                                </ul>
                             </th>
                         </tr>
                         <tr>
@@ -136,7 +138,7 @@
                             <td class="small"><% article.artist %></td>
                             <td class="table-date"><% article.updated_at %></td>
                             <td class="table-date"><% article.created_at %></td>
-                            <td style="text-align: center"><button class="btn btn-primary btn-sm" ng-click="updateArticle(article)"><i class="fa fa-pencil-square-o"></i></button> &nbsp;&nbsp;<button class="btn btn-danger btn-sm" ng-click="deleteArticle(article)"><i class="fa fa-trash"></i></button></td>
+                            <td style="text-align: center"><button class="btn btn-primary btn-sm" ng-click="updateArticle(article)"><i class="glyphicon glyphicon-pencil"></i></button> &nbsp;&nbsp;<button class="btn btn-danger btn-sm" ng-click="deleteArticle(article)"><i class="glyphicon glyphicon-trash"></i></button></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -150,5 +152,37 @@
             </div>
         </div>
     </div>
+
+    <hr>
+
+    <div class="row panel panel-primary">
+        <div class="panel-heading"><h3>Article types</h3></div>
+
+        <div class="row panel-body">
+            <div class="col-xs-12">
+                <h6>Add or edit the types of articles on sale.</h6>
+                    <div class="col-xs-8 col-sm-6">
+                        <form name="ArticletypeForm" class="input-group">
+                            <input class="form-control" type='text' ng-model="articletype.name" placeholder="Name*" name="name" required>
+                            <span class="input-group-btn">
+                                <div class="row" ng-show="createType"><button class="btn btn-primary btn-md" ng-click="addArticletype()" ng-disabled="ArticletypeForm.$invalid" type="submit">&nbsp;&nbsp;<i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button></div>
+
+                                <div class="row" ng-show="!createType"><button class="btn btn-primary btn-md" ng-click="updateSaveArticletype(articletype)" ng-disabled="ArticletypeForm.$invalid" type="submit">&nbsp;&nbsp;<i class="glyphicon glyphicon-save"></i>&nbsp;Save</button></div>
+                            </span>
+                        </form>
+                    </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="list_admin">
+                    <ul ng-model="articletypes">
+                        <li ng-repeat="articletype in articletypes">
+                            <button class="btn btn-primary btn-md" ng-click="updateArticletype(articletype)"><% articletype.name %></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 

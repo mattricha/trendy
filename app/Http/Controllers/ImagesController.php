@@ -34,7 +34,14 @@ class ImagesController extends Controller {
     */
     public function update($id) {
         $image = Image::find($id);
+        $image->articleID = Request::input('articleID');
         $image->weight = Request::input('weight');
+        $image->name = Request::input('name');
+        $image->url = Request::input('url');
+        $image->url100x100 = Request::input('url100x100');
+        $image->url200x200 = Request::input('url200x200');
+        $image->url500W = Request::input('url500W');
+        $image->visible = Request::input('visible');
         $image->save();
         return $image;
     }
