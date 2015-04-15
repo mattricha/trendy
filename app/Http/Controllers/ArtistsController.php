@@ -38,8 +38,6 @@ class ArtistsController extends Controller {
         $artist->email = Request::input('email');
         $artist->company = Request::input('company');
         $artist->description = Request::input('description');
-        $artist->urlProfileImage = Request::input('urlProfileImage');
-        $artist->urlHeader = Request::input('urlHeader');
         $artist->urlPortfolio = Request::input('urlPortfolio');
         $artist->dateJoined = Request::input('dateJoined');
         $artist->save();

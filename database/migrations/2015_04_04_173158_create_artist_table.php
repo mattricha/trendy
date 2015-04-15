@@ -16,11 +16,9 @@ class CreateArtistTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->string('email')->unique();
+			$table->string('email');
 			$table->string('company');
 			$table->string('description');
-			$table->string('urlProfileImage');
-			$table->string('urlHeader');
 			$table->string('urlPortfolio');
 			$table->timestamp('dateJoined');
 			$table->timestamps();
