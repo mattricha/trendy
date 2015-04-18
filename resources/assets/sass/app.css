@@ -40,6 +40,10 @@ body {
 .table-header.st-sort-descent:before {
   content: '\25BC'; }
 
+.list_admin ul {
+  padding: 0px;
+  margin: 0px; }
+
 .list_admin li {
   display: inline;
   float: left;
@@ -47,24 +51,23 @@ body {
   cursor: pointer;
   list-style-type: none; }
 
-.image_elem_admin {
+.articleImage_thumb {
+  display: block;
   opacity: 1;
   transition: opacity .25s ease-in-out;
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out; }
 
-.image_elem_admin:hover {
-  opacity: 0.5; }
+.articleImage_thumb:hover img {
+  opacity: 0.3; }
 
-.image_elem_admin img {
-  height: 80px; }
-
-.image_elem_admin i {
-  font-size: 18px;
-  position: absolute;
+.articleImage_thumb i {
   display: none;
-  top: 5px;
-  right: 5px; }
+  position: relative;
+  z-index: 1000;
+  font-size: 25px;
+  margin-bottom: -25px;
+  margin-left: 75px; }
 
-.image_elem_admin:hover i {
+.articleImage_thumb:hover i {
   display: block; }

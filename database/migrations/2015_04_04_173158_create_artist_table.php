@@ -20,7 +20,7 @@ class CreateArtistTable extends Migration {
 			$table->string('company');
 			$table->string('description');
 			$table->string('urlPortfolio');
-			$table->timestamp('dateJoined');
+			$table->date('dateJoined');
 			$table->timestamps();
 		});
 	}

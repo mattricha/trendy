@@ -159,26 +159,32 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
     $scope.addArticle = function() {
         $scope.loading = true;
         $http.post('/api/articles', {
+        artistID: $scope.artist.id,
+        typeID: $scope.articletype.id,
+        subtypeID: $scope.articlesubtype.id,
+        templateID: 0,
         title: $scope.article.title,
-        artist: $scope.article.artist,
-        origin: $scope.article.origin,
         description: $scope.article.description,
         dimensions: $scope.article.dimensions,
+        size: $scope.article.size,
+        style: $scope.article.style,
         color: $scope.article.color,
         stock: $scope.article.stock,
         price: $scope.article.price,
         sale: $scope.article.sale,
-        tags: $scope.article.tags
+        tags: $scope.article.tags,
+        likes: 0,
+        dateAdded: $scope.article.dateAdded
         }).success(function(data, status, headers, config) {
             $http.get('/api/articles').
             success(function(data, status, headers, config) {
                 $scope.articles = data;
-                uploadID = $scope.articles[$scope.articles.length - 1].id;
+                $routeParams.uploadID = $scope.articles[$scope.articles.length - 1].id;
                 $scope.uploadImages();
             });
-            $scope.article = '';
-            $scope.loading = false;
         });
+        $scope.clearForms();
+        $scope.loading = false;
     };
 
     $scope.updateArticle = function(article) {
@@ -186,16 +192,22 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
         $scope.uploader.clearQueue();
         scrollToTop();
         $scope.article = {id: article.id};
+        $scope.artist = $scope.findArtist(article.artistID);
+        $scope.articletype = $scope.findType(article.typeID);
+        $scope.articlesubtype = $scope.findSubtype(article.subtypeID);
+        $scope.article.templateID = article.templateID;
         $scope.article.title = article.title;
-        $scope.article.artist = article.artist;
-        $scope.article.origin = article.origin;
         $scope.article.description = article.description;
         $scope.article.dimensions = article.dimensions;
+        $scope.article.size = article.size;
+        $scope.article.style = article.style;
         $scope.article.color = article.color;
         $scope.article.stock = article.stock;
         $scope.article.price = article.price;
         $scope.article.sale = article.sale;
         $scope.article.tags = article.tags;
+        $scope.article.likes = article.likes;
+        $scope.article.dateAdded = article.dateAdded;
         $http.get('/api/images/' + article.id)
         .success(function(data, status, headers, config){
             $scope.articleImages = data;
@@ -204,32 +216,37 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
 
     $scope.updateSaveArticle = function(article) {
         $http.put('/api/articles/' + article.id, {
+        artistID: $scope.artist.id,
+        typeID: $scope.articletype.id,
+        subtypeID: $scope.articlesubtype.id,
+        templateID: $scope.article.templateID,
         title: $scope.article.title,
-        artist: $scope.article.artist,
-        origin: $scope.article.origin,
         description: $scope.article.description,
         dimensions: $scope.article.dimensions,
+        size: $scope.article.size,
+        style: $scope.article.style,
         color: $scope.article.color,
         stock: $scope.article.stock,
         price: $scope.article.price,
         sale: $scope.article.sale,
-        tags: $scope.article.tags
+        tags: $scope.article.tags,
+        likes: $scope.article.likes,
+        dateAdded: $scope.article.dateAdded
         }).success(function(data, status, headers, config) {
             $http.get('/api/articles').
             success(function(data, status, headers, config) {
                 $scope.articles = data;
+                $routeParams.uploadID = article.id;
+                $scope.sortImages();
+                $scope.uploadImages();
+                $http.get('/api/images/' + article.id).
+                success(function(data, status, headers, config){
+                    $scope.articleImages = data;
+                });
             });
-            uploadID = $scope.article.id;
-            $routeParams.uploadID = uploadID;
-            $scope.sortImages();
-            $scope.uploadImages();
-            $http.get('/api/images/' + article.id)
-            .success(function(data, status, headers, config){
-                $scope.articleImages = data;
-            });
-            $scope.loading = false;
-            var confirmSave = alert("Your changes have been saved.");
         });
+        $scope.loading = false;
+        var confirmSave = alert("Your changes have been saved.");
     };
 
     $scope.deleteArticle = function(article) {
@@ -243,6 +260,7 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
                     $scope.articles = data;
                 });
                 $scope.loading = false;
+                $scope.clearForms();
             });
         }
     };
@@ -251,17 +269,12 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
         $scope.create = true;
         $scope.uploader.clearQueue();
         $scope.articleImages = [];
-        $scope.article.title = "";
-        $scope.article.artist = "";
-        $scope.article.origin = "";
-        $scope.article.description = "";
-        $scope.article.dimensions = "";
-        $scope.article.color = "";
-        $scope.article.stock = "";
-        $scope.article.price = "";
-        $scope.article.sale = "";
-        $scope.article.tags = "";
-        $scope.article = "";
+        $scope.clearForms();
+    };
+
+    $scope.artistDropdownSelectArticle = function(artist){
+        $scope.artist = {id: artist.id};
+        $scope.artist.name = artist.name;
     };
 
     /* Image upload */
@@ -271,7 +284,10 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
             $scope.articleImage = $scope.articleImages[i];
             $scope.articleImage.weight = i + 1;
             $http.put('/api/images/' + $scope.articleImage.id, {
-                weight: $scope.articleImage.weight
+                articleID: $routeParams.uploadID,
+                weight: $scope.articleImage.weight,
+                name: $scope.articleImage.name,
+                visible: true
             }).success();
         }
     };
@@ -280,17 +296,23 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
         for(i = 0; i < $scope.uploader.queue.length; i++){
             weightImg = 1000;
             nameImg = $scope.uploader.queue[i].file.name;
-            urlImg = "/img/articles/" + uploadID + "/" + nameImg;
             $http.post('/api/images', {
-                articleID: uploadID,
+                articleID: $routeParams.uploadID,
                 weight: weightImg,
                 name: nameImg,
-                url: urlImg,
                 visible: true
             }).success();
         }
         $scope.uploader.uploadAll();
     };
+
+    $scope.deleteImage = function(articleImage) {
+        var confirmDelete = confirm("Are you sure you want to delete this image?");
+        if (confirmDelete === true) {
+            $http.delete('/api/images/' + articleImage.id,{}).success();
+        }
+    };
+
 
     /* Article types */
 
@@ -302,14 +324,13 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
             success(function(data, status, headers, config) {
                 $scope.articletypes = data;
             });
-            $scope.articletypes = '';
+            $scope.clearForms();
         });
-        $scope.switchCreatetype();
     };
 
     $scope.updateArticletype = function(articletype) {
-        var confirmDelete = confirm("Are you sure you want to edit this type?");
-        if (confirmDelete === true) {
+        var confirmEdit = confirm("Are you sure you want to edit this type?");
+        if (confirmEdit === true) {
             $scope.createType = false;
             $scope.articletype = {id: articletype.id};
             $scope.articletype.name = articletype.name;
@@ -328,12 +349,17 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
                 $scope.articletypes = data;
             });
             $scope.switchCreatetype();
+            $scope.clearForms();
         });
     };
 
     $scope.switchCreatetype = function() {
         $scope.createType = true;
-        $scope.articletype.name = "";
+    };
+
+    $scope.typeDropdownSelectArticle = function(articletype){
+        $scope.articletype = {id: articletype.id};
+        $scope.articletype.name = articletype.name;
     };
 
     /* Article subtypes */
@@ -347,9 +373,10 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
             success(function(data, status, headers, config) {
                 $scope.articlesubtypes = data;
             });
-            $scope.articlesubtypes = '';
         });
         $scope.switchCreatesubtype();
+        $scope.switchCreatetype();
+        $scope.clearForms();
     };
 
     $scope.updateArticlesubtype = function(articlesubtype) {
@@ -374,18 +401,24 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
                 $scope.articlesubtypes = data;
             });
             $scope.switchCreatesubtype();
+            $scope.switchCreatetype();
+            $scope.clearForms();
         });
     };
 
     $scope.switchCreatesubtype = function() {
         $scope.createSubtype = true;
-        $scope.articlesubtype = "";
     };
 
     $scope.subtypeDropdownSelect = function(articletype){
         $scope.articletype = {id: articletype.id};
         $scope.articletype.name = articletype.name;
-        $scope.switchCreatesubtype();
+        $scope.createType = false;
+    };
+
+    $scope.subtypeDropdownSelectArticle = function(articlesubtype){
+        $scope.articlesubtype = {id: articlesubtype.id};
+        $scope.articlesubtype.name = articlesubtype.name;
     };
 
 
@@ -407,7 +440,8 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
                 $routeParams.artistID = $scope.artists[$scope.artists.length - 1].id;
                 $scope.uploadArtistImages();
             });
-            $scope.artist = '';
+            $scope.clearForms();
+            $('.inputImage').val('');
             $scope.loading = false;
         });
     };
@@ -437,6 +471,7 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
                 $scope.artists = data;
             });
             $scope.uploadArtistImages();
+            $('.inputImage').val('');
             $scope.loading = false;
             var confirmSave = alert("Your changes have been saved.");
         });
@@ -444,7 +479,7 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
 
     $scope.switchCreateartist = function(){
         $scope.createArtist = true;
-        $scope.artist = "";
+        $scope.clearForms();
     };
 
     $scope.uploadArtistImages = function() {
@@ -452,6 +487,47 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
         $scope.uploaderArtistHeader.uploadAll();
     };
 
+    $scope.clearForms = function() {
+        $scope.article = '';
+        $scope.artist = '';
+        $scope.articletype = '';
+        $scope.articlesubtype = '';
+    };
+
+
+    /* iterators */
+
+    $scope.findArtist = function(artistID){
+        for(i =0; i < $scope.artists.length; i++){
+            if($scope.artists[i].id == artistID){
+                return $scope.artists[i];
+            }
+        }
+    };
+
+    $scope.findType = function(typeID){
+        for(i =0; i < $scope.articletypes.length; i++){
+            if($scope.articletypes[i].id == typeID){
+                return $scope.articletypes[i];
+            }
+        }
+    };
+
+    $scope.findSubtype = function(subtypeID){
+        for(i =0; i < $scope.articlesubtypes.length; i++){
+            if($scope.articlesubtypes[i].id == subtypeID){
+                return $scope.articlesubtypes[i];
+            }
+        }
+    };
+
+    $scope.findArtistName = function(artistID){
+        for(i =0; i < $scope.artists.length; i++){
+            if($scope.artists[i].id == artistID){
+                return $scope.artists[i].name;
+            }
+        }
+    };
 
     $scope.init();
 

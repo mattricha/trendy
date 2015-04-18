@@ -2,8 +2,6 @@
 @section('content')
 <div class="container" ng-app="articleApp" ng-controller="articleController">
     <h1>Shop Manager</h1><hr>
-
-    <div class="row" ng-show="!create"><button class="btn btn-primary btn-md" ng-click="switchCreate()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add article</button></div>
     <br>
     <div class="row panel panel-primary">
         <div class="panel-heading">
@@ -12,46 +10,60 @@
         </div>
         <div class="panel-body">
             <div class="col-md-6">
+                <div class="row" ng-show="!create"><button class="btn btn-primary btn-md" ng-click="switchCreate()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add article</button></div>
                 <h4>Information</h4>
                 <h6>(Mandatory fields are marked with a *)</h6>
+                <br>
                 <form name="ArticleForm">
-
-
-                    <div class="row form-group"><div class="col-sm-12">
-
-
-<!--button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" name="articleSelectArtist"><% artist.name %> <span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu" ng-model="artists">
-                                <li><input type="text" class="typeahead"></li>
-                                <li ng-repeat="artist in artists" value="artist.id" ng-click="subtypeDropdownSelect(artist)"><% artist.name %></li>
-                            </ul-->
-
-
-                            <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><% artist.name %><span class="caret"></span></button>
-                            <span ng-show="submitted"><label class="error">Select an Individual</label></span>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="individualDrop">
-                                <input disable-auto-close type="search" ng-model="searchFilter" placeholder="Search..."></input>
-                                <li role="presentation" ng-repeat="artist in artists | filter: searchFilter"><a role="menuitem" ng-click="subtypeDropdownSelect(artist)"><% artist.name %></a></li>
-                            </ul>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <h6>Select artist</h6>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false" name="articleSelectArtist"><% artist.name %>&nbsp;<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" ng-model="artists">
+                                    <input disable-auto-close type="search" ng-model="searchFilter1" placeholder="Search..."></input>
+                                    <li ng-repeat="artist in artists | filter: searchFilter1" value="artist.id" ng-click="artistDropdownSelectArticle(artist)"><% artist.name %></li>
+                                </ul>
                             </div>
+                        </div>
+                    </div>
 
 
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <h6>Select type</h6>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false" name="articleSelectType"><% articletype.name %>&nbsp;<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" ng-model="articletypes">
+                                    <input disable-auto-close type="search" ng-model="searchFilter2" placeholder="Search..."></input>
+                                    <li ng-repeat="articletype in articletypes | filter: searchFilter2" value="articletype.id" ng-click="typeDropdownSelectArticle(articletype)"><% articletype.name %></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-
-
-
-                    </div></div>
-
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <h6>Select subtype</h6>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false" name="articleSelectSubtype"><% articlesubtype.name %>&nbsp;<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" ng-model="articlesubtypes">
+                                    <input disable-auto-close type="search" ng-model="searchFilter3" placeholder="Search..."></input>
+                                    <li ng-repeat="articlesubtype in articlesubtypes | filter: searchFilter3" ng-if="articlesubtype.typeID == articletype.id" value="articlesubtype.id" ng-click="subtypeDropdownSelectArticle(articlesubtype)"><% articlesubtype.name %></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group"><div class="col-sm-12"><h6>Date added</h6><input class="form-control" type="date" ng-model="article.dateAdded" name="dateAdded"></div></div>
                     <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.title" placeholder="Title*" name="title" required></div></div>
-                    <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.artist" placeholder="Creator*" name="creator" required></div></div>
-                    <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.origin" placeholder="Origin*" name="origin" required></div></div>
                     <div class="row form-group"><div class="col-sm-12"><textarea rows="10" class="form-control" type='text' ng-model="article.description" placeholder="Description*" name="description" required></textarea></div></div>
                     <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.dimensions" placeholder="Dimensions" name="dimensions"></div></div>
+                    <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.size" placeholder="Size" name="size"></div></div>
+                    <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.style" placeholder="Style" name="style"></div></div>
                     <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.color" placeholder="Color" name="color"></div></div>
                     <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="article.tags" placeholder="Tags" name="tags"></div></div>
                     <div class="row form-group"><div class="col-xs-6"><input class="form-control" type='number' ng-model="article.stock" placeholder="Stock*" name="stock" required></div></div>
-                    <div class="row form-group"><div class="col-xs-6"><input class="form-control" type='price' ng-model="article.price" placeholder="Price*" name="price" required></div><label class="checkbox-inline"><input type='checkbox' ng-true-value="1" ng-false-value="'0'" ng-model="article.sale" name="sale">Sell</label></div>
+                    <div class="row form-group"><div class="col-xs-6"><input class="form-control" type='price' ng-model="article.price" placeholder="Price*" name="price" required></div><label class="checkbox-inline"><input type='checkbox' ng-true-value="1" ng-false-value="0" ng-model="article.sale" name="sale">Sell</label></div>
                 </form>
                 <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
             </div>
@@ -116,9 +128,9 @@
                     <h4>Album</h4>
                     <h6>(Drag n drop / Place cover image in 1st place)</h6></span>
                     <ul ui-sortable="sortableOptions" ng-model="articleImages">
-                        <li ng-repeat="articleImage in articleImages" ng-mouseover="hoverImage(articleImage)" class="image_elem_admin">
-                            <img ng-src="<% articleImage.url %>">
-                            <i class="glyphicon glyphicon-remove-sign"></i>
+                        <li ng-repeat="articleImage in articleImages" class="articleImage_thumb">
+                            <i class="glyphicon glyphicon-remove-sign articleImage_thumb_delete" ng-click="deleteImage(articleImage)"></i>
+                            <img ng-src="/img/articles/100x100/<% articleImage.articleID %>/<% articleImage.name %>">
                         </li>
                     </ul>
                 </div>
@@ -128,6 +140,7 @@
                 <hr>
                 <div class="row" ng-show="create"><button class="btn btn-primary btn-md" ng-click="addArticle()" ng-disabled="ArticleForm.$invalid" type="submit"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button></div>
                 <div class="row" ng-show="!create"><button class="btn btn-primary btn-md" ng-click="updateSaveArticle(article)" ng-disabled="ArticleForm.$invalid" type="submit"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button></div>
+                <hr>
             </div>
         </div>
     </div>
@@ -153,7 +166,7 @@
                         <tr>
                             <th class="col-xs-1 text-center table-header" st-sort="id">ID</th>
                             <th class="col-xs-5 text-center table-header" st-sort="title">Title</th>
-                            <th class="col-xs-3 text-center table-header" st-sort="artist">Creator</th>
+                            <th class="col-xs-3 text-center table-header" st-sort="artistID">Artist</th>
                             <th class="col-xs-1 text-center table-header" st-sort="updated_at | date">Updated</th>
                             <th class="col-xs-1 text-center table-header" st-sort="created_at | date">Created</th>
                             <th class="col-xs-1 text-center" style="min-width: 100px">Edit</th>
@@ -163,7 +176,7 @@
                         <tr ng-repeat="article in articlesDisplayed">
                             <td class="small"><% article.id %></td>
                             <td class="small"><% article.title %></td>
-                            <td class="small"><% article.artist %></td>
+                            <td class="small"><% findArtistName(article.artistID) %></td>
                             <td class="table-date"><% article.updated_at %></td>
                             <td class="table-date"><% article.created_at %></td>
                             <td style="text-align: center"><button class="btn btn-primary btn-sm" ng-click="updateArticle(article)"><i class="glyphicon glyphicon-pencil"></i></button> &nbsp;&nbsp;<button class="btn btn-danger btn-sm" ng-click="deleteArticle(article)"><i class="glyphicon glyphicon-trash"></i></button></td>
@@ -223,7 +236,7 @@
                     <form name="ArticlesubtypeForm" class="input-group">
 
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" name="selectType"><% articletype.name %> <span class="caret"></span></button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" name="selectType"><% articletype.name %>&nbsp;<span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu" ng-model="articletypes">
                               <li ng-repeat="articletype in articletypes" value="articletype.id" ng-click="subtypeDropdownSelect(articletype)"><% articletype.name %></li>
                             </ul>
@@ -253,7 +266,6 @@
 
     <hr>
 
-    <div class="row" ng-show="!createArtist"><button class="btn btn-primary btn-md" ng-click="switchCreateartist()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add artist</button></div>
     <br>
     <div class="row panel panel-primary">
         <div class="panel-heading">
@@ -262,6 +274,7 @@
         </div>
         <div class="panel-body">
             <div class="col-md-6">
+                <div class="row" ng-show="!createArtist"><button class="btn btn-primary btn-md" ng-click="switchCreateartist()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add artist</button></div>
                 <h4>Information</h4>
                 <h6>(Mandatory fields are marked with a *)</h6>
                 <form name="ArtistForm" method="post" enctype="multipart/form-data">
@@ -270,17 +283,17 @@
                     <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="artist.company" placeholder="Company" name="company"></div></div>
                     <div class="row form-group"><div class="col-sm-12"><textarea rows="10" class="form-control" type='text' ng-model="artist.description" placeholder="Description*" name="description" required></textarea></div></div>
                     <div class="row form-group"><div class="col-sm-12"><input class="form-control" type='text' ng-model="artist.urlPortfolio" placeholder="Portfolio URL" name="urlPortfolio"></div></div>
-                    <div class="row form-group"><div class="col-sm-12"><input class="form-control" type="text" onfocus="(this.type='date')" ng-model="artist.dateJoined" placeholder="Date joined" name="dateJoined"></div></div>
+                    <div class="row form-group"><div class="col-sm-12"><h6>Date joined</h6><input class="form-control" type="date" ng-model="artist.dateJoined" name="dateJoined"></div></div>
+                    <div class="row form-group"><div class="col-sm-12"><h6>Upload profile image (.jpg only)</h6><input class="form-control inputImage" type="file" nv-file-select="" uploader="uploaderArtistProfile"></div></div>
 
-                    <div class="row form-group"><div class="col-sm-12"><h6>Upload profile image (.jpg only)</h6><input class="form-control" type="file" nv-file-select="" uploader="uploaderArtistProfile"></div></div>
+                    <div class="row form-group"><div class="col-sm-12"><h6>Upload header image (.jpg only)</h6><input class="form-control inputImage" type="file" nv-file-select="" uploader="uploaderArtistHeader"></div></div>
 
-                    <div class="row form-group"><div class="col-sm-12"><h6>Upload header image (.jpg only)</h6><input class="form-control" type="file" nv-file-select="" uploader="uploaderArtistHeader"></div></div>
-
-                    <div class="col-xs-12" align="center">
+                    <div class="row form-group"><div class="col-xs-12" align="center">
                         <hr>
                         <div class="row" ng-show="createArtist"><button class="btn btn-primary btn-md" ng-click="addArtist()" ng-disabled="ArtistForm.$invalid" type="submit"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button></div>
                         <div class="row" ng-show="!createArtist"><button class="btn btn-primary btn-md" ng-click="updateSaveArtist(artist)" ng-disabled="ArtistForm.$invalid" type="submit"><i class="glyphicon glyphicon-save"></i>&nbsp;Save</button></div>
-                    </div>
+                        <hr>
+                    </div></div>
                 </form>
                 <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
             </div>
