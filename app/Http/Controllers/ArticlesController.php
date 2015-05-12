@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Article;
+use App\Article as Article;
 use Request;
 
 class ArticlesController extends Controller {

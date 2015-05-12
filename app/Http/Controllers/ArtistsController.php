@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Artist;
+use App\Artist as Artist;
 use Request;
 
 class ArtistsController extends Controller {

@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Comment;
+use App\Comment as Comment;
 use Request;
 
 class CommentsController extends Controller {

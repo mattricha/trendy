@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Saleshistory;
+use App\Saleshistory as Saleshistory;
 use Request;
 
 class SaleshistoryController extends Controller {

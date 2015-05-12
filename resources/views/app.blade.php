@@ -1,8 +1,6 @@
 <?php
 	$encrypter = app('Illuminate\Encryption\Encrypter');
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">

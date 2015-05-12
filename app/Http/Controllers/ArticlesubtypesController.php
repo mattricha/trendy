@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Articlesubtype;
+use App\Articlesubtype as Articlesubtype;
 use Request;
 
 class ArticlesubtypesController extends Controller {

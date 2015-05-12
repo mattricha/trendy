@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\User as User;
 use Request;
 
 class UsersController extends Controller {
