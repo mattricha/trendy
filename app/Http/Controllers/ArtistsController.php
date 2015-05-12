@@ -54,4 +54,5 @@ class ArtistsController extends Controller {
     public function destroy($id) {
         Artist::destroy($id);
     }
+
 }

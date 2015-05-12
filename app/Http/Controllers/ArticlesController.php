@@ -49,6 +49,7 @@ class ArticlesController extends Controller {
         $article->sale = Request::input('sale');
         $article->tags = Request::input('tags');
         $article->likes = Request::input('likes');
+        $article->views = Request::input('views');
         $article->dateAdded = Request::input('dateAdded');
         $article->save();
 
@@ -63,6 +64,12 @@ class ArticlesController extends Controller {
     */
     public function destroy($id) {
         Article::destroy($id);
+    }
+
+    public function homeArticles(){
+        $homeArticles = Article::join('Images', 'Articles.id', '=', 'Images.articleID')->where('Images.weight', '=', '1')->join('Artists', 'Articles.artistID', '=', 'Artists.id')->join('Articletypes', 'Articles.typeID', '=', 'Articletypes.id')->join('Articlesubtypes', 'Articles.subtypeID', '=', 'Articlesubtypes.id')->select('Articles.id as articleID', 'Articles.title', 'Articles.price', 'Articles.likes', 'Articles.views', 'Articles.dateAdded', 'Images.name as image_name', 'Artists.name as artist_name', 'Articletypes.name as articletype_name', 'Articlesubtypes.name as articlesubtype_name')->get();
+
+        return $homeArticles;
     }
 
 }

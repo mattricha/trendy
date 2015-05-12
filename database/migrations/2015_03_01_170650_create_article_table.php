@@ -30,6 +30,7 @@ class CreateArticleTable extends Migration {
 			$table->boolean('sale');
 			$table->string('tags');
 			$table->integer('likes');
+			$table->integer('views');
 			$table->date('dateAdded');
 			$table->timestamps();
 		});

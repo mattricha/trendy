@@ -57,4 +57,9 @@ class ImagesController extends Controller {
         return $images;
     }
 
+    public function imageCount($articleID){
+        $count = Image::where('articleID', $articleID)->count()->get();
+        return $count;
+    }
+
 }

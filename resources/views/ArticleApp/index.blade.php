@@ -1,5 +1,6 @@
 @extends('app')
 @section('content')
+
 <div class="container" ng-app="articleApp" ng-controller="articleController">
     <h1>Shop Manager</h1><hr>
     <br>
@@ -340,3 +341,4 @@
     <hr>
 
 </div>
+

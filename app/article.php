@@ -6,6 +6,6 @@ class article extends Model {
 
     protected $table = 'articles';
 
-	protected $fillable = array('artistID', 'typeID', 'subtypeID', 'templateID', 'title', 'description', 'dimensions', 'size', 'style', 'color', 'stock', 'price', 'sale', 'tags', 'likes', 'dateAdded');
+	protected $fillable = array('artistID', 'typeID', 'subtypeID', 'templateID', 'title', 'description', 'dimensions', 'size', 'style', 'color', 'stock', 'price', 'sale', 'tags', 'likes', 'views', 'dateAdded');
 
 }

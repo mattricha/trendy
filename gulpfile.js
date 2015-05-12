@@ -63,7 +63,9 @@ gulp.task('js', function(){
         paths.dev.vendor+'es5-shim/dist/js/es5-shim.js',
         paths.dev.vendor+'es5-shim/dist/js/es5-sham.js',
         paths.dev.vendor+'modernizr/modernizr.js',
-        paths.dev.vendor+'shufflejs/dist/jquery.shuffle.js',
+        paths.dev.vendor+'masonry/dist/masonry.pkgd.js',
+        paths.dev.vendor+'angular-masonry/angular-masonry.js',
+        paths.dev.vendor+'imagesloaded/imagesloaded.pkgd.js',
         paths.dev.js+'*.js'
         ])
         .pipe(concat('app.min.js'))

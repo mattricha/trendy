@@ -20,6 +20,7 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('articleapp','ArticleAppController@index');
     Route::resource('api/articles','ArticlesController');
     Route::resource('api/images','ImagesController');
+    Route::get('api/imageCount/{articleID}','ImagesController@imageCount');
     Route::resource('api/articletypes','ArticletypesController');
     Route::resource('api/articlesubtypes','ArticlesubtypesController');
     Route::resource('api/artists','ArtistsController');
@@ -33,5 +34,7 @@ Route::group(['middleware' => 'admin'], function(){
 
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
+Route::get('home/articles', 'ArticlesController@homeArticles');
+Route::get('home/articletypes', 'ArticletypesController@index');
 
 
