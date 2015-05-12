@@ -67,7 +67,7 @@ class ArticlesController extends Controller {
     }
 
     public function homeArticles(){
-        $homeArticles = Article::join('Images', 'Articles.id', '=', 'Images.articleID')->where('Images.weight', '=', '1')->join('Artists', 'Articles.artistID', '=', 'Artists.id')->join('Articletypes', 'Articles.typeID', '=', 'Articletypes.id')->join('Articlesubtypes', 'Articles.subtypeID', '=', 'Articlesubtypes.id')->select('Articles.id as articleID', 'Articles.title', 'Articles.price', 'Articles.likes', 'Articles.views', 'Articles.dateAdded', 'Images.name as image_name', 'Artists.name as artist_name', 'Articletypes.name as articletype_name', 'Articlesubtypes.name as articlesubtype_name')->get();
+        $homeArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->where('images.weight', '=', '1')->join('artists', 'articles.artistID', '=', 'artists.id')->join('articletypes', 'articles.typeID', '=', 'articletypes.id')->join('articlesubtypes', 'articles.subtypeID', '=', 'articlesubtypes.id')->select('articles.id as articleID', 'articles.title', 'articles.price', 'articles.likes', 'articles.views', 'articles.dateAdded', 'images.name as image_name', 'artists.name as artist_name', 'articletypes.name as articletype_name', 'articlesubtypes.name as articlesubtype_name')->get();
 
         return $homeArticles;
     }
