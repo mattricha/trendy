@@ -39,11 +39,12 @@ abstract class Controller extends BaseController {
     public static function JSON($data, $code=200, $lastModified=null, $eTag=null, $maxAge=null)
     {
         $data = self::converToJson($data);
+        return $data;
 
-        $response = Response::make($data, $code);
+        //$response = Response::make($data, $code);
         $response->header('Content-Type', 'application/json; charset=UTF-8');
         $response->header('Content-Length', strlen($data));
-        $response->header('X-Environment', App::environment());
+        //$response->header('X-Environment', App::environment());
 
         return $response;
     }
