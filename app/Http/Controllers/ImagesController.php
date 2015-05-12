@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Image as Image;
+use App\image as Image;
 use Request;
 
 class ImagesController extends Controller {
