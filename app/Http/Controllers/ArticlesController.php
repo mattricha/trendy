@@ -69,7 +69,7 @@ class ArticlesController extends Controller {
     public function homeArticles(){
         $homeArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->where('images.weight', '=', '1')->join('artists', 'articles.artistID', '=', 'artists.id')->join('articletypes', 'articles.typeID', '=', 'articletypes.id')->join('articlesubtypes', 'articles.subtypeID', '=', 'articlesubtypes.id')->select('articles.id as articleID', 'articles.title', 'articles.price', 'articles.likes', 'articles.views', 'articles.dateAdded', 'images.name as image_name', 'artists.name as artist_name', 'articletypes.name as articletype_name', 'articlesubtypes.name as articlesubtype_name')->get();
 
-        return $homeArticles;
+        return self::JSON($homeArticles);
     }
 
 }
