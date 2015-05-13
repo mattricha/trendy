@@ -15,6 +15,8 @@ $font-content: 'Questrial', sans-serif !important;
 $font-size: 14px;
 $sm-font-size: 10px;
 $lg-font-size: 18px;
+$xl-font-size: 24px;
+$xxl-font-size: 30px;
 
 $dark-color: #121212;
 $light-color: #ffffff;
@@ -38,6 +40,8 @@ $content-width: 1000px;
 $md-media-width: 900px;
 $sm-media-width: 768px;
 $xs-media-width: 500px;
+
+$footer-height: 200px;
 
 $zindex-top: 10000;
 
@@ -74,6 +78,12 @@ $zindex-top: 10000;
     -webkit-border-radius: $default-radius $default-radius 0 0;
 }
 
+@mixin artist-sm-image-radius{
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
 @mixin default-border{
     border: 1px solid $inactive-text-color;
 }
@@ -96,11 +106,11 @@ $zindex-top: 10000;
 }
 
 @mixin transition-scale{
-    -webkit-transform:scale(1.1);
-    -moz-transform:scale(1.1);
-    -ms-transform:scale(1.1);
-    -o-transform:scale(1.1);
-     transform:scale(1.1);
+    -webkit-transform:scale(1.05);
+    -moz-transform:scale(1.05);
+    -ms-transform:scale(1.05);
+    -o-transform:scale(1.05);
+     transform:scale(1.05);
 }
 
 @mixin transition-ease{
@@ -124,10 +134,15 @@ $zindex-top: 10000;
                 HTML
 ************************************/
 
+html {
+  position: relative;
+  min-height: 100%;
+}
 
 body{
     font-family: $font-content;
     padding-top:100px;
+    margin-bottom: $footer-height;
     background-image: url('/img/site/bg/extra_clean_paper.png');
     background-repeat: repeat;
 }
@@ -192,15 +207,16 @@ body{
 
 .logo{
     display: inline-block;
-    padding: $xs-padding;
+    padding-top: 2px;
 }
 
 .navbar-home-wrapper{
     width: 100%;
-    height: 50px;
+    min-height: 50px;
 }
 
 .navbar-home-main{
+    display: none;
     width: 80%;
     max-width: $content-width;
     margin: 0 auto;
@@ -232,22 +248,22 @@ body{
 }
 
 .content-main{
+    display: none;
     width: 80%;
-    height: 100%;
     max-width: $content-width;
-    min-height: $content-width;
     margin: 0 auto;
     padding: $md-padding;
-    padding-bottom:100px;
+    padding-bottom:300px;
     background-color: $light-color;
     @include content-background-radius;
     @include light-shadow;
 }
 
 .footer-wrapper{
-    width: 100%;
     position: absolute;
-    margin-bottom: 0;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height;
     background-color: $dark-color;
 }
 
@@ -331,6 +347,7 @@ body{
         width: 85px;
     }
 }
+
 /* masonry */
 
 .homeMasonry{
@@ -342,12 +359,15 @@ body{
     padding: $sm-padding;
     width: 33.333%;
     overflow: hidden;
+    a, a:hover, a:active{
+        text-decoration: none;
+        color: $primary-text-color;
+    }
     img{
         @include transition-ease;
         width: 100%;
     }
-    .homeMasonry_brick_title,
-    .homeMasonry_brick_artist,
+    .homeMasonry_brick_top_txt,
     .homeMasonry_brick_type{
         @include transition-quick-ease;
         display: none;
@@ -357,21 +377,20 @@ body{
             opacity: 0.3;
             @include transition-scale;
         }
-        .homeMasonry_brick_title,
-        .homeMasonry_brick_artist,
+        .homeMasonry_brick_top_txt,
         .homeMasonry_brick_type{
             display: block;
             position: absolute;
         }
-        .homeMasonry_brick_title{
+        .homeMasonry_brick_top_txt{
             top: 15px;
             left: 20px;
+        }
+        .homeMasonry_brick_title{
             font-size: $lg-font-size;
             font-weight: bold;
         }
         .homeMasonry_brick_artist{
-            top: 35px;
-            left: 20px;
             font-size: $font-size;
             font-style: italic;
         }
@@ -382,6 +401,83 @@ body{
         }
     }
 }
+
+/* article page */
+
+.article-title{
+    font-size: $xl-font-size;
+    font-weight: bold;
+}
+
+.article-type{
+    a, a:hover, a:active{
+        color: $primary-text-color;
+    }
+}
+
+.article-artist{
+    a, a:hover, a:active{
+        color: $primary-text-color;
+    }
+    ul{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .article-artist-image{
+        width: 30px;
+        height: 30px;
+        @include artist-sm-image-radius;
+    }
+}
+
+.article-description{
+    font-size: $font-size;
+}
+
+.article-cover{
+    img{
+        width: 100%;
+    }
+}
+
+.article-images-thumbs{
+    ul{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+        display: inline-block;
+        width: 20%;
+    }
+    .article-image-thumb{
+        img{
+            width: 100%;
+        }
+    }
+}
+
+.article-shop{
+    ul{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: $md-padding;
+    }
+    .article-price{
+        font-size: $xxl-font-size;
+    }
+}
+
 
 /* admin */
 
@@ -446,15 +542,7 @@ body{
 
 @media only screen and (max-width: $sm-media-width) {
 
-    .navbar-main{
-        width: 90%;
-    }
-
-    .content-main{
-        width: 90%;
-    }
-
-    .footer-main{
+    .navbar-main, .navbar-home-main, .content-main, .footer-main{
         width: 90%;
     }
 
@@ -479,7 +567,7 @@ body{
 
 @media only screen and (max-width: $xs-media-width) {
 
-    .homeMasonry_brick{
+    .homeMasonry_brick, .content-main{
         width: 100%;
     }
 

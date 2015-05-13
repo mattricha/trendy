@@ -37,4 +37,6 @@ Route::get('home', 'HomeController@index');
 Route::get('home/articles', 'ArticlesController@homeArticles');
 Route::get('home/articletypes', 'ArticletypesController@index');
 
+Route::get('article/{articleID}', 'ArticlesController@articlePage');
+
 

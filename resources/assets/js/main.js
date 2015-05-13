@@ -36,12 +36,44 @@ var appMasonry = angular.module('masonryApp', ['ngRoute','wu.masonry'])
 
 
 
-/*  MISC  */
+/* ARTICLE PAGE APP */
+
+var appArticlepage = angular.module('articlepageApp', ['ngRoute'])
+
+.config(['$interpolateProvider', function($interpolateProvider) {
+    $interpolateProvider.startSymbol('<%');
+    $interpolateProvider.endSymbol('%>');
+}])
+
+.controller('articlepageController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+
+    $scope.loading = false;
+    $scope.article = null;
+
+    $scope.init = function() {
+        $scope.loading = true;
 
 
-/* scroll to top */
+
+        $scope.loading = false;
+    };
+
+    $scope.init();
+
+}]);
+
+
+/* functions */
+
 
 function scrollToTop(){
     $('html, body').animate({scrollTop : 0},400);
 }
 
+
+/* events */
+
+$( document ).ready(function() {
+    $(".content-main").css("display","block");
+    $(".navbar-home-main").css("display","block");
+});

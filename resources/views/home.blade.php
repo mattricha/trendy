@@ -5,7 +5,7 @@
 <div class="home" ng-app="masonryApp" ng-controller="masonryController">
 
 	<div class="navbar-home-wrapper">
-		<div class="navbar-home-main">
+		<div class="navbar-home-main navbar">
 			<ul>
 				<li class="navbar-home-item">ALL</li>
 				<li class="navbar-home-item" ng-repeat="articletype in articletypes"><%articletype.name%></li>
@@ -17,10 +17,14 @@
 
 			<div masonry preserve-order class="homeMasonry" ng-model="homeArticles">
 				<div class="masonry-brick homeMasonry_brick" ng-repeat="homeArticle in homeArticles">
-					<img src="/img/articles/500W/<%homeArticle.articleID%>/<%homeArticle.image_name%>">
-					<div class="homeMasonry_brick_title"><%homeArticle.title%></div>
-					<div class="homeMasonry_brick_artist"><%homeArticle.artist_name%></div>
-					<div class="homeMasonry_brick_type"><%homeArticle.articletype_name%></div>
+					<a href="/article/<%homeArticle.articleID%>">
+						<img src="/img/articles/500W/<%homeArticle.articleID%>/<%homeArticle.image_name%>">
+						<div class="homeMasonry_brick_top_txt">
+							<div class="homeMasonry_brick_title"><%homeArticle.title%></div>
+							<div class="homeMasonry_brick_artist"><%homeArticle.artist_name%></div>
+						</div>
+						<div class="homeMasonry_brick_type"><%homeArticle.articletype_name%></div>
+					</a>
 				</div>
 			</div>
 

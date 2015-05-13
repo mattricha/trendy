@@ -8,8 +8,8 @@ abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
 
-    public static function errorResponseFactory($message, $code=200, $validation=null)
-    {
+    public static function errorResponseFactory($message, $code=200, $validation=null){
+
         $data = array(
             'error'   => true,
             'message' => $message,
@@ -36,8 +36,8 @@ abstract class Controller extends BaseController {
      * @param string $eTag
      * @param int    $maxAge       in seconds
      */
-    public static function JSON($data, $code=200, $lastModified=null, $eTag=null, $maxAge=null)
-    {
+    public static function JSON($data, $code=200, $lastModified=null, $eTag=null, $maxAge=null){
+
         $data = self::converToJson($data);
         return $data;
 
@@ -56,8 +56,8 @@ abstract class Controller extends BaseController {
      * @param  mixed  $data
      * @return string JSON
      */
-    public static function converToJson($data)
-    {
+    public static function converToJson($data){
+
         if (is_array($data)) {
             foreach ($data as &$val) {
                 if ((is_object($val)) || (is_array($val))) {
