@@ -29,7 +29,7 @@ body {
 .navbar-wrapper {
   width: 100%;
   height: 40px;
-  background-color: #ffffff;
+  background-color: #121212;
   position: fixed;
   top: 0;
   left: 0;
@@ -47,7 +47,7 @@ body {
   max-width: 1000px; }
   .navbar-main a, .navbar-main a:hover, .navbar-main a:active, .navbar-main a:visited {
     text-decoration: none;
-    color: #121212; }
+    color: #ffffff; }
 
 .navbar-main-items {
   display: inline-block;
@@ -68,7 +68,7 @@ body {
   display: inline-block;
   line-height: 40px; }
 .navbar-main-items li:hover, .navbar-main-items li:active, .show-navbar li:hover, .show-navbar li:active {
-  background-color: #eeeeee; }
+  background-color: #3a3a3a; }
 
 .logo {
   display: inline-block;
@@ -137,7 +137,12 @@ body {
   bottom: 0;
   width: 100%;
   height: 200px;
-  background-color: #121212; }
+  background-color: #121212;
+  -moz-box-shadow: 0px 0px 10px 0px #000000;
+  -webkit-box-shadow: 0px 0px 10px 0px #000000;
+  -o-box-shadow: 0px 0px 10px 0px #000000;
+  box-shadow: 0px 0px 10px 0px #000000;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=10); }
 
 .footer-main {
   width: 80%;
@@ -289,15 +294,47 @@ body {
 .article-cover img {
   width: 100%; }
 
-.article-images-thumbs ul {
+.article-images-thumbs ul, .same-type-articles-thumbs ul, .same-artist-articles-thumbs ul {
   margin: 0;
   padding: 0; }
-.article-images-thumbs li {
+.article-images-thumbs li, .same-type-articles-thumbs li, .same-artist-articles-thumbs li {
   list-style-type: none;
   display: inline-block;
-  width: 20%; }
-.article-images-thumbs .article-image-thumb img {
+  width: 19%; }
+
+.article-image-thumb img {
   width: 100%; }
+
+.same-type-articles-thumb, .same-artist-articles-thumb {
+  cursor: pointer; }
+  .same-type-articles-thumb a, .same-type-articles-thumb a:hover, .same-type-articles-thumb a:active, .same-artist-articles-thumb a, .same-artist-articles-thumb a:hover, .same-artist-articles-thumb a:active {
+    text-decoration: none;
+    color: #121212; }
+  .same-type-articles-thumb img, .same-artist-articles-thumb img {
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+    width: 100%; }
+  .same-type-articles-thumb .similar_article_top_txt, .same-artist-articles-thumb .similar_article_top_txt {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    display: none; }
+  .same-type-articles-thumb:hover img, .same-artist-articles-thumb:hover img {
+    opacity: 0.3; }
+  .same-type-articles-thumb:hover .similar_article_top_txt, .same-artist-articles-thumb:hover .similar_article_top_txt {
+    display: block;
+    position: absolute; }
+  .same-type-articles-thumb:hover .similar_article_title, .same-artist-articles-thumb:hover .similar_article_title {
+    font-size: 10px;
+    font-weight: bold; }
+  .same-type-articles-thumb:hover .similar_article_artist, .same-artist-articles-thumb:hover .similar_article_artist {
+    font-size: 8px;
+    font-style: italic; }
 
 .article-shop ul {
   margin: 0;
@@ -309,6 +346,59 @@ body {
   padding-right: 20px; }
 .article-shop .article-price {
   font-size: 30px; }
+
+/* artist shop */
+.artist-details-panel .artist-cover {
+  margin-left: 10px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px 100px 100px 100px;
+  -moz-border-radius: 100px 100px 100px 100px;
+  -webkit-border-radius: 100px 100px 100px 100px; }
+.artist-details-panel .artist-name {
+  font-size: 24px;
+  font-weight: bold; }
+.artist-details-panel .artist-company {
+  font-size: 14px; }
+
+.artist-articles-thumbs ul {
+  margin: 0;
+  padding: 0; }
+.artist-articles-thumbs li {
+  list-style-type: none;
+  display: inline-block;
+  width: 19%; }
+
+.artist-articles-thumb {
+  cursor: pointer; }
+  .artist-articles-thumb a, .artist-articles-thumb a:hover, .artist-articles-thumb a:active {
+    text-decoration: none;
+    color: #121212; }
+  .artist-articles-thumb img {
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+    width: 100%; }
+  .artist-articles-thumb .artist_article_top_txt {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    display: none; }
+  .artist-articles-thumb:hover img {
+    opacity: 0.3; }
+  .artist-articles-thumb:hover .artist_article_top_txt {
+    display: block;
+    position: absolute; }
+  .artist-articles-thumb:hover .artist_article_title {
+    font-size: 10px;
+    font-weight: bold; }
+  .artist-articles-thumb:hover .artist_article_artist {
+    font-size: 8px;
+    font-style: italic; }
 
 /* admin */
 .table-date {
@@ -351,6 +441,73 @@ body {
   .articleImage_thumb .articleImage_thumb_delete:hover {
     display: block; }
 
+/* separator */
+.spacer {
+  margin-top: 35px;
+  width: 100%;
+  position: relative; }
+  .spacer .mask {
+    overflow: hidden;
+    height: 20px; }
+    .spacer .mask:after {
+      content: '';
+      display: block;
+      margin: -25px auto 0;
+      width: 100%;
+      height: 25px;
+      border-radius: 125px/12px;
+      box-shadow: 0 0 10px #b3b3b3; }
+  .spacer span {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: -25px;
+    left: 50%;
+    margin-left: -25px;
+    border-radius: 100%;
+    box-shadow: 0 2px 4px #999;
+    background: white; }
+  .spacer span i {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    border-radius: 100%;
+    border: 1px dashed #aaa;
+    text-align: center;
+    line-height: 40px;
+    font-style: normal;
+    color: #999; }
+
+.spacer-vertical {
+  display: inline-block;
+  margin-top: 100px;
+  margin-left: 100px;
+  width: 100px;
+  position: relative; }
+  .spacer-vertical .mask {
+    overflow: hidden;
+    width: 20px;
+    height: 200px; }
+  .spacer-vertical.left .mask:after {
+    content: '';
+    display: block;
+    margin-left: -20px;
+    width: 20px;
+    height: 100%;
+    border-radius: 12px/125px;
+    box-shadow: 0 0 8px black; }
+  .spacer-vertical.right .mask:before {
+    content: '';
+    display: block;
+    margin-left: 20px;
+    width: 20px;
+    height: 100%;
+    border-radius: 12px/125px;
+    box-shadow: 0 0 8px black; }
+
 /************************************
             MEDIA QUERIES
 ************************************/
@@ -363,10 +520,20 @@ body {
   .show-navbar {
     display: inline-block; } }
 
+@media only screen and (max-width: 992px) {
+  .artist-cover {
+    margin: 0 auto !important; } }
+
 @media only screen and (max-width: 900px) {
   .homeMasonry_brick {
     width: 50%; } }
 
 @media only screen and (max-width: 500px) {
+  body {
+    padding-top: 50px; }
   .homeMasonry_brick, .content-main {
-    width: 100%; } }
+    width: 100%; }
+  .content-main {
+    border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    -webkit-border-radius: 0 0 0 0; } }

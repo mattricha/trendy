@@ -459,6 +459,7 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
         $scope.artist.email = artist.email;
         $scope.artist.company = artist.company;
         $scope.artist.description = artist.description;
+        $scope.artist.urlPortfolio = artist.urlPortfolio;
         $scope.artist.dateJoined = artist.dateJoined;
     };
 

@@ -36,32 +36,6 @@ var appMasonry = angular.module('masonryApp', ['ngRoute','wu.masonry'])
 
 
 
-/* ARTICLE PAGE APP */
-
-var appArticlepage = angular.module('articlepageApp', ['ngRoute'])
-
-.config(['$interpolateProvider', function($interpolateProvider) {
-    $interpolateProvider.startSymbol('<%');
-    $interpolateProvider.endSymbol('%>');
-}])
-
-.controller('articlepageController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-
-    $scope.loading = false;
-    $scope.article = null;
-
-    $scope.init = function() {
-        $scope.loading = true;
-
-
-
-        $scope.loading = false;
-    };
-
-    $scope.init();
-
-}]);
-
 
 /* functions */
 

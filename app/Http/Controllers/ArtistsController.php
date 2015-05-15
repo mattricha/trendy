@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use App\artist as Artist;
+use App\article as Article;
+use App\image as Image;
 use Request;
 
 class ArtistsController extends Controller {
@@ -53,6 +55,12 @@ class ArtistsController extends Controller {
     */
     public function destroy($id) {
         Artist::destroy($id);
+    }
+
+    public function artistPage($id){
+        $artist = Artist::find($id);
+        $articles = Article::join('images', 'articles.id', '=', 'images.articleID')->where('articles.artistID', '=', $id)->where('images.weight', '=', '1')->select('articles.id as articleID', 'articles.title', 'images.name as image_name')->get();
+        return view('artist',['artist'=>$artist,'articles'=>$articles]);
     }
 
 }

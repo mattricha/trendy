@@ -38,5 +38,6 @@ Route::get('home/articles', 'ArticlesController@homeArticles');
 Route::get('home/articletypes', 'ArticletypesController@index');
 
 Route::get('article/{articleID}', 'ArticlesController@articlePage');
+Route::get('artist/{artistID}', 'ArtistsController@artistPage');
 
 
