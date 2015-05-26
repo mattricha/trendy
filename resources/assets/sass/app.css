@@ -294,16 +294,23 @@ body {
 .article-cover img {
   width: 100%; }
 
-.article-images-thumbs ul, .same-type-articles-thumbs ul, .same-artist-articles-thumbs ul {
-  margin: 0;
-  padding: 0; }
-.article-images-thumbs li, .same-type-articles-thumbs li, .same-artist-articles-thumbs li {
-  list-style-type: none;
-  display: inline-block;
-  width: 19%; }
+.article-images-thumbs, .same-type-articles-thumbs, .same-artist-articles-thumbs {
+  padding: 10px; }
+  .article-images-thumbs div, .same-type-articles-thumbs div, .same-artist-articles-thumbs div {
+    padding: 5px;
+    margin: 0; }
 
-.article-image-thumb img {
-  width: 100%; }
+.article-image-thumb {
+  cursor: pointer; }
+  .article-image-thumb img {
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+    width: 100%; }
+  .article-image-thumb:hover img {
+    opacity: 0.3; }
 
 .same-type-articles-thumb, .same-artist-articles-thumb {
   cursor: pointer; }
@@ -328,7 +335,10 @@ body {
     opacity: 0.3; }
   .same-type-articles-thumb:hover .similar_article_top_txt, .same-artist-articles-thumb:hover .similar_article_top_txt {
     display: block;
-    position: absolute; }
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    line-height: 10px; }
   .same-type-articles-thumb:hover .similar_article_title, .same-artist-articles-thumb:hover .similar_article_title {
     font-size: 10px;
     font-weight: bold; }
@@ -347,7 +357,7 @@ body {
 .article-shop .article-price {
   font-size: 30px; }
 
-/* artist shop */
+/* artist page */
 .artist-details-panel .artist-cover {
   margin-left: 10px;
   width: 200px;
@@ -361,13 +371,11 @@ body {
 .artist-details-panel .artist-company {
   font-size: 14px; }
 
-.artist-articles-thumbs ul {
-  margin: 0;
-  padding: 0; }
-.artist-articles-thumbs li {
-  list-style-type: none;
-  display: inline-block;
-  width: 19%; }
+.artist-articles-thumbs {
+  padding: 10px; }
+  .artist-articles-thumbs div {
+    padding: 5px;
+    margin: 0; }
 
 .artist-articles-thumb {
   cursor: pointer; }
@@ -392,13 +400,64 @@ body {
     opacity: 0.3; }
   .artist-articles-thumb:hover .artist_article_top_txt {
     display: block;
-    position: absolute; }
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    line-height: 10px; }
   .artist-articles-thumb:hover .artist_article_title {
     font-size: 10px;
     font-weight: bold; }
   .artist-articles-thumb:hover .artist_article_artist {
     font-size: 8px;
     font-style: italic; }
+
+/* album image overlay */
+.overlay-wrapper {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11000;
+  background-image: url('/img/site/bg/black70.png');
+  background-repeat: repeat;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%; }
+
+.overlay-main {
+  padding: 30px; }
+  .overlay-main .glyphicon {
+    font-size: 24px;
+    padding: 10px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease; }
+  .overlay-main ul {
+    margin: 0;
+    padding: 0; }
+  .overlay-main li {
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: middle; }
+  .overlay-main .overlay-left-arrow, .overlay-main .overlay-right-arrow, .overlay-main .overlay-close {
+    cursor: pointer;
+    color: white; }
+  .overlay-main .overlay-left-arrow:hover, .overlay-main .overlay-right-arrow:hover, .overlay-main .overlay-close:hover {
+    opacity: 0.5;
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5); }
+  .overlay-main .overlay-image {
+    -moz-box-shadow: 0px 0px 100px 0px #000000;
+    -webkit-box-shadow: 0px 0px 100px 0px #000000;
+    -o-box-shadow: 0px 0px 100px 0px #000000;
+    box-shadow: 0px 0px 100px 0px #000000;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=10); }
 
 /* admin */
 .table-date {

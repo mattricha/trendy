@@ -87,8 +87,12 @@ class ArticlesController extends Controller {
         $images = Image::where('articleID', $id)->orderBy('weight', 'asc')->get();
         $type = Articletype::where('id', $article->typeID)->select('name')->get();
         $subtype = Articlesubtype::where('id', $article->subtypeID)->select('name')->get();
-        $similarArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->join('artists', 'articles.artistID', '=', 'artists.id')->where('articles.typeID', $article->typeID)->where('images.weight', '=', '1')->take(5)->select('articles.id as articleID', 'articles.title', 'images.name as image_name','artists.name as artist_name')->get();
-        $sameArtistArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->where('articles.artistID', $article->artistID)->where('images.weight', '=', '1')->take(5)->select('articles.id as articleID', 'articles.title', 'images.name as image_name')->get();
+        $similarArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->join('artists', 'articles.artistID', '=', 'artists.id')->where('articles.typeID', $article->typeID)->where('images.weight', '=', '1')->take(6)->select('articles.id as articleID', 'articles.title', 'images.name as image_name','artists.name as artist_name')->get();
+        $sameArtistArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->where('articles.artistID', $article->artistID)->where('images.weight', '=', '1')->take(6)->select('articles.id as articleID', 'articles.title', 'images.name as image_name')->get();
+
+        // send image array to client side
+        echo "<script> var articleImages = " . self::JSON($images) . ";</script>";
+
         return view('article',['article'=>$article,'images'=>$images,'artist'=>$artist[0]->name,'type'=>$type[0]->name,'subtype'=>$subtype[0]->name, 'similarArticles'=>$similarArticles,'sameArtistArticles'=>$sameArtistArticles]);
     }
 

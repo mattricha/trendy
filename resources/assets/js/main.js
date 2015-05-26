@@ -34,6 +34,106 @@ var appMasonry = angular.module('masonryApp', ['ngRoute','wu.masonry'])
 
 }]);
 
+/* article page app */
+
+var appArticlePage = angular.module('articlePageApp', ['ngRoute'])
+
+.config(['$interpolateProvider', function($interpolateProvider) {
+    $interpolateProvider.startSymbol('<%');
+    $interpolateProvider.endSymbol('%>');
+}])
+
+.controller('articlePageController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+
+    var ite = 0;
+    var length = 0;
+    var imgUrl = "";
+    var imgHeight;
+    var imgWidth;
+
+    $scope.init = function() {
+        length = articleImages.length;
+    };
+
+    // set image size based on viewport vh vw, and keep aspect ratio of image
+    $scope.setImgSize = function(){
+        var img = $(".overlay-image");
+        // Create dummy image to get real width and height
+        $("<img>").attr("src", $(img).attr("src")).load(function(){
+            imgWidth = this.width;
+            imgHeight = this.height;
+            if(imgHeight > imgWidth){
+                ratio = imgWidth / imgHeight;
+                maxratio = imgHeight / imgWidth;
+                newWidth = (70 * ratio) + "vw";
+                newMaxHeight = (60 * maxratio) + "vh";
+                maxHeight = imgHeight + 'px';
+                $('.overlay-image').css('width', newWidth);
+                $('.overlay-image').css('height', '70vw');
+                $('.overlay-image').css('max-width', '60vh');
+                $('.overlay-image').css('max-height', newMaxHeight);
+            }
+            else{
+                ratio = imgHeight / imgWidth;
+                maxratio = imgWidth / imgHeight;
+                newHeight = (70 * ratio) + "vw";
+                newMaxWidth = (70 * maxratio) + "vh";
+                maxHeight = imgHeight + 'px';
+                $('.overlay-image').css('width', '70vw');
+                $('.overlay-image').css('height', newHeight);
+                $('.overlay-image').css('max-width', newMaxWidth);
+                $('.overlay-image').css('max-height', '70vh');
+            }
+        });
+    };
+
+    $scope.closeOverlay = function(){
+        //$('body').css('position','static');
+        //$('body').css('overflow-y','auto');
+        $('.overlay-wrapper').fadeOut("slow");
+    };
+
+    $scope.openOverlay = function(){
+        //$('body').css('position','fixed');
+        //$('body').css('overflow-y','scroll');
+        $('.overlay-wrapper').fadeIn("slow");
+    };
+
+    $scope.showImage = function(imgWeight){
+        $scope.openOverlay();
+        ite = imgWeight - 1;
+        imgUrl = "/img/articles/500W/" + articleImages[ite].articleID + "/" + articleImages[ite].name;
+        $(".overlay-image").attr('src',imgUrl);
+        $scope.setImgSize();
+    };
+
+    $scope.nextImage = function(){
+        if((ite + 1) < length){
+            ite = ite + 1;
+        }
+        else{
+            ite = 0;
+        }
+        imgUrl = "/img/articles/500W/" + articleImages[ite].articleID + "/" + articleImages[ite].name;
+        $(".overlay-image").attr('src',imgUrl);
+        $scope.setImgSize();
+    };
+
+    $scope.prevImage = function(){
+        if(ite === 0){
+            ite = length - 1;
+        }
+        else{
+            ite = ite - 1;
+        }
+        imgUrl = "/img/articles/500W/" + articleImages[ite].articleID + "/" + articleImages[ite].name;
+        $(".overlay-image").attr('src',imgUrl);
+        $scope.setImgSize();
+    };
+
+    $scope.init();
+
+}]);
 
 
 

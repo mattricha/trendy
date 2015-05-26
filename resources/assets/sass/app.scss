@@ -31,9 +31,11 @@ $inactive-text-color: #dedede;
 $inactive-color-dark: #a8a8a8;
 
 $default-padding: 40px;
+$lg-padding: 30px;
 $md-padding: 20px;
 $sm-padding: 10px;
 $xs-padding: 5px;
+$xxs-padding: 2px;
 $default-margin: 40px;
 $md-margin: 20px;
 $sm-margin: 10px;
@@ -48,6 +50,7 @@ $xs-media-width: 500px;
 $footer-height: 200px;
 
 $zindex-top: 10000;
+$zindex-overlay: 11000;
 
 /************************************
                MIXINS
@@ -68,6 +71,14 @@ $zindex-top: 10000;
     -o-box-shadow: 0px 0px 10px 0px #cfcfcf;
     box-shadow: 0px 0px 10px 0px #cfcfcf;
     filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=NaN, Strength=10);
+}
+
+@mixin large-shadow{
+    -moz-box-shadow: 0px 0px 100px 0px #000000;
+    -webkit-box-shadow: 0px 0px 100px 0px #000000;
+    -o-box-shadow: 0px 0px 100px 0px #000000;
+    box-shadow: 0px 0px 100px 0px #000000;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=10);
 }
 
 @mixin default-radius{
@@ -128,6 +139,14 @@ $zindex-top: 10000;
     -ms-transform:scale(1.05);
     -o-transform:scale(1.05);
      transform:scale(1.05);
+}
+
+@mixin transition-lg-scale{
+    -webkit-transform:scale(1.5);
+    -moz-transform:scale(1.5);
+    -ms-transform:scale(1.5);
+    -o-transform:scale(1.5);
+     transform:scale(1.5);
 }
 
 @mixin transition-ease{
@@ -464,20 +483,23 @@ body{
 }
 
 .article-images-thumbs, .same-type-articles-thumbs, .same-artist-articles-thumbs{
-    ul{
+    padding: $sm-padding;
+    div{
+        padding: $xs-padding;
         margin: 0;
-        padding: 0;
-    }
-    li{
-        list-style-type: none;
-        display: inline-block;
-        width: 19%;
     }
 }
 
 .article-image-thumb{
+    cursor: pointer;
     img{
+        @include transition-ease;
         width: 100%;
+    }
+    &:hover{
+        img{
+            opacity: 0.3;
+        }
     }
 }
 
@@ -502,6 +524,9 @@ body{
         .similar_article_top_txt{
             display: block;
             position: absolute;
+            top: 2px;
+            left: 2px;
+            line-height: 10px;
         }
         .similar_article_title{
             font-size: $sm-font-size;
@@ -530,7 +555,7 @@ body{
     }
 }
 
-/* artist shop */
+/* artist page */
 
 .artist-details-panel{
     .artist-cover{
@@ -551,14 +576,10 @@ body{
 }
 
 .artist-articles-thumbs{
-    ul{
+    padding: $sm-padding;
+    div{
+        padding: $xs-padding;
         margin: 0;
-        padding: 0;
-    }
-    li{
-        list-style-type: none;
-        display: inline-block;
-        width: 19%;
     }
 }
 
@@ -583,6 +604,9 @@ body{
         .artist_article_top_txt{
             display: block;
             position: absolute;
+            top: 2px;
+            left: 2px;
+            line-height: 10px;
         }
         .artist_article_title{
             font-size: $sm-font-size;
@@ -592,6 +616,51 @@ body{
             font-size: $xs-font-size;
             font-style: italic;
         }
+    }
+}
+
+/* album image overlay */
+
+.overlay-wrapper{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-overlay;
+    background-image: url('/img/site/bg/black70.png');
+    background-repeat: repeat;
+    background-size: cover;
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+}
+
+.overlay-main{
+    padding: $lg-padding;
+    .glyphicon {
+        font-size: 24px;
+        padding: $sm-padding;
+        @include transition-quick-ease;
+    }
+    ul{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .overlay-left-arrow, .overlay-right-arrow, .overlay-close{
+        cursor: pointer;
+        color: white;
+    }
+    .overlay-left-arrow:hover, .overlay-right-arrow:hover, .overlay-close:hover{
+        opacity: 0.5;
+        @include transition-lg-scale;
+    }
+    .overlay-image{
+        @include large-shadow;
     }
 }
 
@@ -716,6 +785,7 @@ body{
     box-shadow:0 0 8px black;
   }
 }
+
 
 /************************************
             MEDIA QUERIES

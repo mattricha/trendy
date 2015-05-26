@@ -46,11 +46,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h4>Articles</h4>
-                <div class="artist-articles-thumbs">
-                    <ul>
+                <div class="artist-articles-thumbs row">
                     @foreach($articles as $article)
-                        <li>
-                            <div class="artist-articles-thumb">
+                            <div class="artist-articles-thumb col-xs-4 col-sm-3 col-md-2">
                                 <a href="/article/{{$article->articleID}}">
                                     <img src="/img/articles/200x200/{{$article->articleID}}/{{$article->image_name}}">
                                     <div class="artist_article_top_txt">
@@ -59,9 +57,7 @@
                                     </div>
                                 </a>
                             </div>
-                        </li>
                     @endforeach
-                    </ul>
                 </div>
             </div>
         </div>
