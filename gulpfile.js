@@ -66,6 +66,9 @@ gulp.task('js', function(){
         paths.dev.vendor+'masonry/dist/masonry.pkgd.js',
         paths.dev.vendor+'angular-masonry/angular-masonry.js',
         paths.dev.vendor+'imagesloaded/imagesloaded.pkgd.js',
+        paths.dev.vendor+'angular-animate/angular-animate.js',
+        paths.dev.vendor+'v-accordion/dist/v-accordion.js',
+        paths.dev.vendor+'angular-utils-pagination/dirPagination.js',
         paths.dev.js+'*.js'
         ])
         .pipe(concat('app.min.js'))

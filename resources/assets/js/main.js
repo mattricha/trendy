@@ -65,12 +65,12 @@ var appArticlePage = angular.module('articlePageApp', ['ngRoute'])
             if(imgHeight > imgWidth){
                 ratio = imgWidth / imgHeight;
                 maxratio = imgHeight / imgWidth;
-                newWidth = (70 * ratio) + "vw";
-                newMaxHeight = (60 * maxratio) + "vh";
+                newWidth = (60 * ratio) + "vw";
+                newMaxHeight = (70 * maxratio) + "vh";
                 maxHeight = imgHeight + 'px';
                 $('.overlay-image').css('width', newWidth);
-                $('.overlay-image').css('height', '70vw');
-                $('.overlay-image').css('max-width', '60vh');
+                $('.overlay-image').css('height', '60vw');
+                $('.overlay-image').css('max-width', '70vh');
                 $('.overlay-image').css('max-height', newMaxHeight);
             }
             else{
@@ -135,6 +135,80 @@ var appArticlePage = angular.module('articlePageApp', ['ngRoute'])
 
 }]);
 
+
+/* browse page app */
+
+var appBrowse = angular.module('browseApp', ['ngRoute', 'vAccordion', 'angularUtils.directives.dirPagination'])
+
+.config(['$interpolateProvider', function($interpolateProvider) {
+    $interpolateProvider.startSymbol('<%');
+    $interpolateProvider.endSymbol('%>');
+}])
+
+.controller('browseController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+
+    $scope.loading = false;
+    $scope.articles = [];
+    $scope.articletypes = [];
+    $scope.articlesubtypes = [];
+
+    $scope.itemsByPage=9;
+
+    var url = "";
+    var type = 0;
+    var subtype = 0;
+    var page = 0;
+
+    $scope.init = function() {
+        $scope.loading = true;
+
+        $http.get('/browse/articletypes').
+        success(function(data, status, headers, config) {
+            $scope.articletypes = data;
+        });
+
+        $http.get('/browse/articlesubtypes').
+        success(function(data, status, headers, config) {
+            $scope.articlesubtypes = data;
+        });
+
+        $http.get('/browse/articles/0').
+        success(function(data, status, headers, config) {
+            $scope.articles = data;
+        });
+        $scope.loading = false;
+    };
+
+    $scope.selectType = function(typeID) {
+        type = typeID;
+        url = "/browse/type/" + typeID + "/0";
+        $http.get(url).
+        success(function(data, status, headers, config) {
+            $scope.articles = data;
+        });
+    };
+
+    $scope.selectSubtype = function(subtypeID) {
+        subtype = subtypeID;
+        url = "/browse/subtype/" + subtypeID + "/0";
+        $http.get(url).
+        success(function(data, status, headers, config) {
+            $scope.articles = data;
+        });
+    };
+
+    $scope.selectAll = function() {
+        type = 0;
+        subtype = 0;
+        $http.get('/browse/articles/0').
+        success(function(data, status, headers, config) {
+            $scope.articles = data;
+        });
+    };
+
+    $scope.init();
+
+}]);
 
 
 /* functions */

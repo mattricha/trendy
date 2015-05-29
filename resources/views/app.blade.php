@@ -24,6 +24,7 @@
 			<a class="logo" href="/"><img src="/img/site/logo_small.png" alt="Rubix"></a>
 			<ul class="navbar-main-items">
 				@if (Auth::guest())
+					<li><a href="/browse"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Browse</a></li>
 					<li><a href="/auth/login"><i class="glyphicon glyphicon-user"></i>&nbsp;Login</a></li>
 					<li><a href="/auth/register"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Register</a></li>
 				@else
@@ -35,6 +36,7 @@
 							<li><a href="/auth/logout"><i class="glyphicon glyphicon-log-out"></i>&nbsp;Logout</a></li>
 						</ul>
 					</li>
+					<li><a href="/browse"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Browse</a></li>
 					<li><a href="/user/wishlist"><i class="glyphicon glyphicon-star"></i>&nbsp;Wishlist</a></li>
 					<li><a href="/user/cart"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Cart</a></li>
 				@endif
@@ -49,10 +51,12 @@
 					<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;Menu <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						@if (Auth::guest())
+							<li><a href="/browse"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Browse</a></li>
 							<li><a href="/auth/login"><i class="glyphicon glyphicon-user"></i>&nbsp;Login</a></li>
 							<li><a href="/auth/register"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Register</a></li>
 						@else
 							<li><a href="/user/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Profile</a></li>
+							<li><a href="/browse"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Browse</a></li>
 							<li><a href="/user/wishlist"><i class="glyphicon glyphicon-star"></i>&nbsp;Wishlist</a></li>
 							<li><a href="/user/cart"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Cart</a></li>
 							<li><a href="/user/settings"><i class="glyphicon glyphicon-cog"></i>&nbsp;Settings</a></li>

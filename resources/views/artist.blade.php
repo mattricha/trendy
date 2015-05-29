@@ -45,7 +45,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <h4>Articles</h4>
+                <h3>Articles</h3>
                 <div class="artist-articles-thumbs row">
                     @foreach($articles as $article)
                             <div class="artist-articles-thumb col-xs-4 col-sm-3 col-md-2">

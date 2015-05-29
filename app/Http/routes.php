@@ -40,4 +40,10 @@ Route::get('home/articletypes', 'ArticletypesController@index');
 Route::get('article/{articleID}', 'ArticlesController@articlePage');
 Route::get('artist/{artistID}', 'ArtistsController@artistPage');
 
+Route::get('browse', 'ArticlesController@browse');
+Route::get('browse/type/{typeID}/{page}', 'ArticlesController@browseType');
+Route::get('browse/subtype/{subtypeID}/{page}', 'ArticlesController@browseSubtype');
+Route::get('browse/articles/{page}', 'ArticlesController@browseArticles');
+Route::get('browse/articletypes', 'ArticletypesController@index');
+Route::get('browse/articlesubtypes', 'ArticlesubtypesController@index');
 

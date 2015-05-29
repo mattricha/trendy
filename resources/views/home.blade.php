@@ -7,8 +7,8 @@
 	<div class="navbar-home-wrapper">
 		<div class="navbar-home-main navbar">
 			<ul>
-				<li class="navbar-home-item">ALL</li>
-				<li class="navbar-home-item" ng-repeat="articletype in articletypes"><%articletype.name%></li>
+				<li class="navbar-home-item"><a href="/browse">ALL</a></li>
+				<li class="navbar-home-item" ng-repeat="articletype in articletypes"><a href="/browse"><%articletype.name%></a></li>
 			</ul>
 		</div>
 	</div>

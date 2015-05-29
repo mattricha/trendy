@@ -2,10 +2,9 @@
 
 @section('content')
 
-
-<div class="content-wrapper">
-    <div class="content-main">
-        <div class="articlePage" ng-app="articlePageApp" ng-controller="articlePageController">
+<div class="articlePage" ng-app="articlePageApp" ng-controller="articlePageController">
+    <div class="content-wrapper">
+        <div class="content-main">
             <div class="row">
                 <div class="article-left-panel col-sm-6">
                     <div class="article-cover"><img src="/img/articles/500W/{{$article->id}}/{{$images[0]->name}}"></div>
@@ -77,51 +76,51 @@
             <br><br>
             <div class="spacer"><div class="mask"></div></div>
 
-            <h4>Similar articles</h4>
-            <div class="same-type-articles-thumbs row">
+            <div class="article-subsection-title">Similar articles</div>
+            <div class="browse-articles-thumbs row">
                 @foreach($similarArticles as $similarArticle)
-                        <div class="same-type-articles-thumb col-xs-4 col-sm-2">
+                        <div class="browse-articles-thumb col-xs-4 col-sm-2">
                             <a href="/article/{{$similarArticle->articleID}}">
                                 <img src="/img/articles/200x200/{{$similarArticle->articleID}}/{{$similarArticle->image_name}}">
-                                <div class="similar_article_top_txt">
-                                    <div class="similar_article_title">{{$similarArticle->title}}</div>
-                                    <div class="similar_article_artist">{{$similarArticle->artist_name}}</div>
+                                <div class="browse-article-top-txt">
+                                    <div class="browse-article-title">{{$similarArticle->title}}</div>
+                                    <div class="browse-article-artist">{{$similarArticle->artist_name}}</div>
                                 </div>
                             </a>
                         </div>
                 @endforeach
             </div>
 
-            <div class="spacer"><div class="mask"></div></div>
+            <hr>
 
-            <h4>Other articles from {{$artist}}</h4>
-            <div class="same-artist-articles-thumbs row">
+            <div class="article-subsection-title">Other articles from {{$artist}}</div>
+            <div class="browse-articles-thumbs row">
                 @foreach($sameArtistArticles as $sameArtistArticle)
-                        <div class="same-artist-articles-thumb col-xs-4 col-sm-2">
+                        <div class="browse-articles-thumb col-xs-4 col-sm-2">
                             <a href="/article/{{$sameArtistArticle->articleID}}">
                                 <img src="/img/articles/200x200/{{$sameArtistArticle->articleID}}/{{$sameArtistArticle->image_name}}">
-                                <div class="similar_article_top_txt">
-                                    <div class="similar_article_title">{{$sameArtistArticle->title}}</div>
-                                    <div class="similar_article_artist">{{$artist}}</div>
+                                <div class="browse-article-top-txt">
+                                    <div class="browse-article-title">{{$sameArtistArticle->title}}</div>
+                                    <div class="browse-article-artist">{{$artist}}</div>
                                 </div>
                             </a>
                         </div>
                 @endforeach
             </div>
-
-            <div class="overlay-wrapper" align="center">
-                <div class="overlay-main">
-                    <img class="overlay-image" src="/img/site/bg/black70.png">
-                    <ul>
-                        <li><i class="overlay-left-arrow glyphicon glyphicon-chevron-left" ng-click="prevImage()"></i></li>
-                        <li><i class="overlay-close glyphicon glyphicon-remove" ng-click="closeOverlay()"></i></li>
-                        <li><i class="overlay-right-arrow glyphicon glyphicon-chevron-right" ng-click="nextImage()"></i><li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
     </div>
+
+    <div class="overlay-wrapper" align="center">
+        <div class="overlay-main">
+            <ul>
+                <li><i class="overlay-left-arrow glyphicon glyphicon-chevron-left" ng-click="prevImage()"></i></li>
+                <li><i class="overlay-close glyphicon glyphicon-remove" ng-click="closeOverlay()"></i></li>
+                <li><i class="overlay-right-arrow glyphicon glyphicon-chevron-right" ng-click="nextImage()"></i><li>
+            </ul>
+            <img class="overlay-image" src="/img/site/bg/black70.png">
+        </div>
+    </div>
+
 </div>
 
 
