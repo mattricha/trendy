@@ -9,7 +9,7 @@
             <hr>
             <div class="row">
                 <div class="browse-left-panel col-sm-4 col-md-3">
-                    <v-accordion class="vAccordion--default">
+                    <v-accordion class="vAccordion--default" control="accordion">
                         <v-pane expanded="$first">
                             <v-pane-header ng-click="selectAll()">
                                <div class="accordion-section-title">ALL</div>

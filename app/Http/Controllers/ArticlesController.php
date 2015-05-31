@@ -109,8 +109,20 @@ class ArticlesController extends Controller {
         return view('browse');
     }
 
+    public function browseType($typeID){
+        // send typeID to client side
+        echo "<script> var browseTypeID = " . $typeID . ";</script>";
+        return view('browse');
+    }
+
+    public function browseSubtype($subtypeID){
+        // send typeID to client side
+        echo "<script> var browseSubtypeID = " . $subtypeID . ";</script>";
+        return view('browse');
+    }
+
     // page number specified to avoid getting too many articles
-    public function browseType($typeID, $page){
+    public function getBrowseType($typeID, $page){
         /*
         $perPage = 12;
         $skip = $page * $perPage;
@@ -121,7 +133,7 @@ class ArticlesController extends Controller {
     }
 
     // page number specified to avoid getting too many articles
-    public function browseSubtype($subtypeID, $page){
+    public function getBrowseSubtype($subtypeID, $page){
         /*
         $perPage = 12;
         $skip = $page * $perPage;
@@ -134,7 +146,7 @@ class ArticlesController extends Controller {
     }
 
     // page number specified to avoid getting too many articles
-    public function browseArticles($page){
+    public function getBrowseArticles($page){
         /*
         $perPage = 12;
         $skip = $page * $perPage;

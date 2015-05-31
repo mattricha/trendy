@@ -89,6 +89,18 @@ $zindex-overlay: 11000;
     filter:progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=10);
 }
 
+@mixin right-side-shadow{
+    -webkit-box-shadow: 15px 0px 34px -26px rgba(0,0,0,0.75);
+    -moz-box-shadow: 15px 0px 34px -26px rgba(0,0,0,0.75);
+    box-shadow: 15px 0px 34px -26px rgba(0,0,0,0.75);
+}
+
+@mixin no-shadow{
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
+    box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
+}
+
 @mixin default-radius{
     border-radius: $default-radius $default-radius $default-radius $default-radius;
     -moz-border-radius: $default-radius $default-radius $default-radius $default-radius;
@@ -218,6 +230,19 @@ body{
     a, a:hover, a:active, a:visited{
         text-decoration: none;
         color: $light-color;
+    }
+    .dropdown-menu{
+        margin-top: 0px;
+        min-width: 100px !important;
+        a, a:hover, a:active, a:visited{
+            color: $dark-color !important;
+            padding: $sm-padding;
+        }
+    }
+    .dropdown:hover{
+        .dropdown-menu {
+            display: block;
+        }
     }
 }
 
@@ -691,6 +716,9 @@ body{
 
 /* browse page */
 
+.browse-left-panel{
+    @include right-side-shadow;
+}
 
 .accordion-section-title{
     font-weight: bold;
@@ -899,11 +927,11 @@ v-pane-content {
 }
 
 .spacer-vertical {
-  display:inline-block;
-  margin-top:100px; margin-left:100px; width:100px;
+  margin-left:20px;
+  width:20px;
   position:relative;
   .mask {
-    overflow:hidden; width:20px; height:200px;
+    overflow:hidden; width:20px; height:500px;
     //outline:1px solid pink;
   }
   &.left .mask:after {
@@ -911,14 +939,14 @@ v-pane-content {
     display:block; margin-left:-20px;
     width:20px; height:100%;
     border-radius:12px / 125px;
-    box-shadow:0 0 10px #b3b3b3;
+    box-shadow:0 0 20px #b3b3b3;
   }
   &.right .mask:before {
     content:'';
     display:block; margin-left:20px;
     width:20px; height:100%;
     border-radius:12px / 125px;
-    box-shadow:0 0 10px #b3b3b3;
+    box-shadow:0 0 20px #b3b3b3;
   }
 }
 
@@ -942,6 +970,10 @@ v-pane-content {
 
     .show-navbar {
         display: inline-block;
+    }
+
+    .browse-left-panel{
+        @include no-shadow;
     }
 }
 

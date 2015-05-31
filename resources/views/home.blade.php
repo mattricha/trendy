@@ -8,7 +8,7 @@
 		<div class="navbar-home-main navbar">
 			<ul>
 				<li class="navbar-home-item"><a href="/browse">ALL</a></li>
-				<li class="navbar-home-item" ng-repeat="articletype in articletypes"><a href="/browse"><%articletype.name%></a></li>
+				<li class="navbar-home-item" ng-repeat="articletype in articletypes"><a href="/browse/t/<%articletype.id%>"><%articletype.name%></a></li>
 			</ul>
 		</div>
 	</div>

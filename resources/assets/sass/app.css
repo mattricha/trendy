@@ -48,6 +48,14 @@ body {
   .navbar-main a, .navbar-main a:hover, .navbar-main a:active, .navbar-main a:visited {
     text-decoration: none;
     color: #ffffff; }
+  .navbar-main .dropdown-menu {
+    margin-top: 0px;
+    min-width: 100px !important; }
+    .navbar-main .dropdown-menu a, .navbar-main .dropdown-menu a:hover, .navbar-main .dropdown-menu a:active, .navbar-main .dropdown-menu a:visited {
+      color: #121212 !important;
+      padding: 10px; }
+  .navbar-main .dropdown:hover .dropdown-menu {
+    display: block; }
 
 .navbar-main-items {
   display: inline-block;
@@ -485,6 +493,11 @@ body {
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=10); }
 
 /* browse page */
+.browse-left-panel {
+  -webkit-box-shadow: 15px 0px 34px -26px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 15px 0px 34px -26px rgba(0, 0, 0, 0.75);
+  box-shadow: 15px 0px 34px -26px rgba(0, 0, 0, 0.75); }
+
 .accordion-section-title {
   font-weight: bold;
   font-size: 14px; }
@@ -682,15 +695,13 @@ v-pane-content > div {
     color: #999; }
 
 .spacer-vertical {
-  display: inline-block;
-  margin-top: 100px;
-  margin-left: 100px;
-  width: 100px;
+  margin-left: 20px;
+  width: 20px;
   position: relative; }
   .spacer-vertical .mask {
     overflow: hidden;
     width: 20px;
-    height: 200px; }
+    height: 500px; }
   .spacer-vertical.left .mask:after {
     content: '';
     display: block;
@@ -698,7 +709,7 @@ v-pane-content > div {
     width: 20px;
     height: 100%;
     border-radius: 12px/125px;
-    box-shadow: 0 0 10px #b3b3b3; }
+    box-shadow: 0 0 20px #b3b3b3; }
   .spacer-vertical.right .mask:before {
     content: '';
     display: block;
@@ -706,7 +717,7 @@ v-pane-content > div {
     width: 20px;
     height: 100%;
     border-radius: 12px/125px;
-    box-shadow: 0 0 10px #b3b3b3; }
+    box-shadow: 0 0 20px #b3b3b3; }
 
 /************************************
             MEDIA QUERIES
@@ -718,7 +729,11 @@ v-pane-content > div {
   .navbar-main-items {
     display: none; }
   .show-navbar {
-    display: inline-block; } }
+    display: inline-block; }
+  .browse-left-panel {
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0);
+    box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0); } }
 
 @media only screen and (max-width: 992px) {
   .artist-cover {

@@ -11,7 +11,7 @@
                 </div>
                 <div class="article-right-panel col-sm-6">
                     <div class="article-type">
-                        <a href="/articletype/{{$article->typeID}}">{{$type}}</a>/<a href="/articlesubtype/{{$article->subtypeID}}">{{$subtype}}</a>
+                        <a href="/browse/t/{{$article->typeID}}">{{$type}}</a>/<a href="/browse/st/{{$article->subtypeID}}">{{$subtype}}</a>
                     </div>
                     <div class="article-title">
                         {{$article->title}}

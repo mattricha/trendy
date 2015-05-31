@@ -48,12 +48,12 @@
                 <h3>Articles</h3>
                 <div class="artist-articles-thumbs row">
                     @foreach($articles as $article)
-                            <div class="artist-articles-thumb col-xs-4 col-sm-3 col-md-2">
+                            <div class="browse-articles-thumb col-xs-4 col-sm-3 col-md-2">
                                 <a href="/article/{{$article->articleID}}">
                                     <img src="/img/articles/200x200/{{$article->articleID}}/{{$article->image_name}}">
-                                    <div class="artist_article_top_txt">
-                                        <div class="artist_article_title">{{$article->title}}</div>
-                                        <div class="artist_article_artist">{{$artist->name}}</div>
+                                    <div class="browse-article-top-txt">
+                                        <div class="browse-article-title">{{$article->title}}</div>
+                                        <div class="browse-article-artist">{{$artist->name}}</div>
                                     </div>
                                 </a>
                             </div>
