@@ -57,6 +57,7 @@ gulp.task('js', function(){
         paths.dev.vendor+'bootstrap/dist/js/bootstrap.js',
         paths.dev.vendor+'angular-ui-bootstrap-bower/ui-bootstrap.js',
         paths.dev.vendor+'angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
+        //paths.dev.vendor+'angular-bootstrap/ui-bootstrap.js',
         paths.dev.vendor+'angular-file-upload/angular-file-upload.js',
         paths.dev.vendor+'angular-smart-table/dist/smart-table.js',
         paths.dev.vendor+'angular-ui-sortable/sortable.js',

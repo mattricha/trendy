@@ -297,7 +297,7 @@ var appArticle = angular.module('articleApp', ['ngRoute','smart-table','angularF
     };
 
     $scope.uploadImages = function() {
-        var offsetWeight = $http.get('/api/imageCount/' + $routeParams.uploadID);
+        var offsetWeight = $scope.articleImages.length;
         for(i = 0; i < $scope.uploader.queue.length; i++){
             weightImg = i + 1 + offsetWeight;
             nameImg = $scope.uploader.queue[i].file.name;

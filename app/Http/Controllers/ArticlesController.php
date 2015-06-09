@@ -6,6 +6,10 @@ use App\image as Image;
 use App\artist as Artist;
 use App\articletype as Articletype;
 use App\articlesubtype as Articlesubtype;
+use App\cart as Cart;
+use App\like as Like;
+use App\wishlist as Wishlist;
+use Auth;
 use Request;
 
 class ArticlesController extends Controller {
@@ -89,6 +93,10 @@ class ArticlesController extends Controller {
 
     public function articlePage($id){
         $article = Article::find($id);
+
+        //increment view count
+        $article->views = $article->views + 1;
+        $article->save();
         $artist = Artist::where('id', $article->artistID)->select('name')->get();
         $images = Image::where('articleID', $id)->orderBy('weight', 'asc')->get();
         $type = Articletype::where('id', $article->typeID)->select('name')->get();
@@ -96,8 +104,25 @@ class ArticlesController extends Controller {
         $similarArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->join('artists', 'articles.artistID', '=', 'artists.id')->where('articles.typeID', $article->typeID)->where('images.weight', '=', '1')->take(6)->select('articles.id as articleID', 'articles.title', 'images.name as image_name','artists.name as artist_name')->get();
         $sameArtistArticles = Article::join('images', 'articles.id', '=', 'images.articleID')->where('articles.artistID', $article->artistID)->where('images.weight', '=', '1')->take(6)->select('articles.id as articleID', 'articles.title', 'images.name as image_name')->get();
 
-        // send image array to client side
-        echo "<script> var articleImages = " . self::JSON($images) . ";</script>";
+        // check if article already in user's cart/likes/wishlist
+        if (Auth::check()){
+            $inCart = Cart::where('articleID', '=', $article->id)->where('userID', '=', Auth::user()->id)->count();
+            $inLike = Like::where('articleID', '=', $article->id)->where('userID', '=', Auth::user()->id)->count();
+            $inWishlist = Wishlist::where('articleID', '=', $article->id)->where('userID', '=', Auth::user()->id)->count();
+        }
+        else{
+            $inCart = 1;
+            $inLike = 1;
+            $inWishlist = 1;
+        }
+
+        // send variables to client side
+        echo "<script>
+        var articleImages = " . self::JSON($images) . ";
+        var inCart = " . $inCart . ";
+        var inLike = " . $inLike . ";
+        var inWishlist = " . $inWishlist . ";
+        </script>";
 
         return view('article',['article'=>$article,'images'=>$images,'artist'=>$artist[0]->name,'type'=>$type[0]->name,'subtype'=>$subtype[0]->name, 'similarArticles'=>$similarArticles,'sameArtistArticles'=>$sameArtistArticles]);
     }
@@ -156,4 +181,20 @@ class ArticlesController extends Controller {
         return self::JSON($browseArticles);
     }
 
+    // USER PAGE
+
+    public function getLikeArticles(){
+        $likeArticles = Article::join('likes', 'articles.id', '=', 'likes.articleID')->where('likes.userID', '=', Auth::user()->id)->join('images', 'articles.id', '=', 'images.articleID')->where('images.weight', '=', '1')->join('artists', 'articles.artistID', '=', 'artists.id')->join('articletypes', 'articles.typeID', '=', 'articletypes.id')->join('articlesubtypes', 'articles.subtypeID', '=', 'articlesubtypes.id')->select('articles.id as articleID', 'articles.title', 'articles.price', 'articles.likes', 'articles.views', 'articles.dateAdded', 'images.name as image_name', 'artists.name as artist_name', 'articletypes.name as articletype_name', 'articlesubtypes.name as articlesubtype_name')->get();
+        return self::JSON($likeArticles);
+    }
+
+    public function getWishlistArticles(){
+        $wishlistArticles = Article::join('wishlists', 'articles.id', '=', 'wishlists.articleID')->where('wishlists.userID', '=', Auth::user()->id)->join('images', 'articles.id', '=', 'images.articleID')->where('images.weight', '=', '1')->join('artists', 'articles.artistID', '=', 'artists.id')->join('articletypes', 'articles.typeID', '=', 'articletypes.id')->join('articlesubtypes', 'articles.subtypeID', '=', 'articlesubtypes.id')->select('articles.id as articleID', 'articles.title', 'articles.price', 'articles.likes', 'articles.views', 'articles.dateAdded', 'images.name as image_name', 'artists.name as artist_name', 'articletypes.name as articletype_name', 'articlesubtypes.name as articlesubtype_name')->get();
+        return self::JSON($wishlistArticles);
+    }
+
+    public function getCartArticles(){
+        $cartArticles = Article::join('carts', 'articles.id', '=', 'carts.articleID')->where('carts.userID', '=', Auth::user()->id)->join('images', 'articles.id', '=', 'images.articleID')->where('images.weight', '=', '1')->join('artists', 'articles.artistID', '=', 'artists.id')->join('articletypes', 'articles.typeID', '=', 'articletypes.id')->join('articlesubtypes', 'articles.subtypeID', '=', 'articlesubtypes.id')->select('articles.id as articleID', 'articles.title', 'articles.price', 'articles.likes', 'articles.views', 'articles.dateAdded','carts.quantity', 'images.name as image_name', 'artists.name as artist_name', 'articletypes.name as articletype_name', 'articlesubtypes.name as articlesubtype_name')->get();
+        return self::JSON($cartArticles);
+    }
 }

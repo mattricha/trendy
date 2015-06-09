@@ -54,6 +54,8 @@ body {
     .navbar-main .dropdown-menu a, .navbar-main .dropdown-menu a:hover, .navbar-main .dropdown-menu a:active, .navbar-main .dropdown-menu a:visited {
       color: #121212 !important;
       padding: 10px; }
+    .navbar-main .dropdown-menu li {
+      width: 100%; }
   .navbar-main .dropdown:hover .dropdown-menu {
     display: block; }
 
@@ -138,6 +140,7 @@ body {
   display: none;
   width: 80%;
   max-width: 1000px;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 20px;
   padding-bottom: 300px;
@@ -313,9 +316,9 @@ body {
 .article-cover img {
   width: 100%; }
 
-.article-images-thumbs, .browse-articles-thumbs {
+.article-images-thumbs, .browse-articles-thumbs, .browse-artists-thumbs {
   padding: 10px; }
-  .article-images-thumbs div, .browse-articles-thumbs div {
+  .article-images-thumbs div, .browse-articles-thumbs div, .browse-artists-thumbs div {
     padding: 5px;
     margin: 0; }
 
@@ -361,11 +364,11 @@ body {
     -ms-transform: scale(1.05);
     -o-transform: scale(1.05);
     transform: scale(1.05);
-    -moz-box-shadow: 0px 0px 15px 0px #000000;
-    -webkit-box-shadow: 0px 0px 15px 0px #000000;
-    -o-box-shadow: 0px 0px 15px 0px #000000;
-    box-shadow: 0px 0px 15px 0px #000000;
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=15); }
+    -moz-box-shadow: 0px 0px 15px 0px #333333;
+    -webkit-box-shadow: 0px 0px 15px 0px #333333;
+    -o-box-shadow: 0px 0px 15px 0px #333333;
+    box-shadow: 0px 0px 15px 0px #333333;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#333333, Direction=NaN, Strength=15); }
   .browse-articles-thumb:hover .browse-article-top-txt {
     display: block;
     position: absolute;
@@ -390,6 +393,28 @@ body {
 .article-shop .article-price {
   font-size: 30px; }
 
+.article-icons {
+  cursor: pointer;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
+  .article-icons ul {
+    margin: 0;
+    padding: 0; }
+  .article-icons li {
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 20px; }
+  .article-icons li:hover {
+    opacity: 0.5; }
+  .article-icons .article-wishlist-true i {
+    color: #CCCC00; }
+  .article-icons .article-like-true i {
+    color: #B80000; }
+
 /* artist page */
 .artist-details-panel .artist-cover {
   margin-left: 10px;
@@ -404,45 +429,90 @@ body {
 .artist-details-panel .artist-company {
   font-size: 14px; }
 
-.artist-articles-thumbs {
-  padding: 10px; }
-  .artist-articles-thumbs div {
-    padding: 5px;
-    margin: 0; }
+.artist-md-cover {
+  margin-left: 10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px 35px 35px 35px;
+  -moz-border-radius: 35px 35px 35px 35px;
+  -webkit-border-radius: 35px 35px 35px 35px; }
 
-.artist-articles-thumb {
-  cursor: pointer; }
-  .artist-articles-thumb a, .artist-articles-thumb a:hover, .artist-articles-thumb a:active {
+.browse-artists-thumb {
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
+  .browse-artists-thumb a, .browse-artists-thumb a:hover, .browse-artists-thumb a:active {
     text-decoration: none;
     color: #121212; }
-  .artist-articles-thumb img {
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    -ms-transition: all 1s ease;
-    transition: all 1s ease;
-    width: 100%; }
-  .artist-articles-thumb .artist_article_top_txt {
+  .browse-artists-thumb .browse-artists-top-txt {
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -ms-transition: all 0.5s ease;
     transition: all 0.5s ease;
     display: none; }
-  .artist-articles-thumb:hover img {
-    opacity: 0.3; }
-  .artist-articles-thumb:hover .artist_article_top_txt {
-    display: block;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    line-height: 10px; }
-  .artist-articles-thumb:hover .artist_article_title {
-    font-size: 10px;
-    font-weight: bold; }
-  .artist-articles-thumb:hover .artist_article_artist {
-    font-size: 8px;
-    font-style: italic; }
+  .browse-artists-thumb:hover {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transform: scale(1.05); }
+    .browse-artists-thumb:hover .artist-md-cover {
+      opacity: 0.3; }
+    .browse-artists-thumb:hover .browse-artists-top-txt {
+      position: absolute;
+      display: block;
+      line-height: 14px;
+      width: 70px;
+      bottom: 13px; }
+    .browse-artists-thumb:hover .browse-artists-name {
+      font-size: 14px;
+      font-weight: bold; }
+
+/* user page */
+.user-details-panel .user-cover {
+  margin-left: 10px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px 100px 100px 100px;
+  -moz-border-radius: 100px 100px 100px 100px;
+  -webkit-border-radius: 100px 100px 100px 100px; }
+.user-details-panel .user-name {
+  font-size: 24px;
+  font-weight: bold; }
+.user-details-panel .user-company {
+  font-size: 14px; }
+.user-details-panel .user-options ul {
+  margin: 0;
+  padding: 0; }
+.user-details-panel .user-options li {
+  list-style-type: none;
+  display: inline-block;
+  vertical-align: middle; }
+
+.user-cart-table td, .user-cart-table th {
+  text-align: left; }
+
+.cart-total-txt, .cart-taxe-txt, .cart-totalWithTx-txt {
+  text-align: right; }
+
+.cart-totalWithTx-txt {
+  font-size: 14px;
+  font-weight: bold; }
+
+.cart-total, .cart-taxe, .cart-totalWithTx {
+  font-weight: bold; }
+
+.cart-totalWithTx {
+  font-size: 24px; }
+
+.cart-checkout {
+  text-align: center; }
 
 /* album image overlay */
 .overlay-wrapper {
@@ -722,6 +792,15 @@ v-pane-content > div {
 /************************************
             MEDIA QUERIES
 ************************************/
+/*==========  Non-Mobile First Method  ==========*/
+@media only screen and (max-width: 992px) {
+  .artist-cover, .user-cover {
+    margin: 0 auto !important; } }
+
+@media only screen and (max-width: 900px) {
+  .homeMasonry_brick {
+    width: 50%; } }
+
 @media only screen and (max-width: 768px) {
   .navbar-main, .navbar-home-main, .content-main, .footer-main {
     width: 90%; }
@@ -734,14 +813,6 @@ v-pane-content > div {
     -webkit-box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0);
     -moz-box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0);
     box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0); } }
-
-@media only screen and (max-width: 992px) {
-  .artist-cover {
-    margin: 0 auto !important; } }
-
-@media only screen and (max-width: 900px) {
-  .homeMasonry_brick {
-    width: 50%; } }
 
 @media only screen and (max-width: 500px) {
   body {

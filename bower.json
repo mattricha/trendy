@@ -13,7 +13,8 @@
     "jquery-bridget": "~1.1.0",
     "qunit": "~1.18.0",
     "v-accordion": "~1.2.3",
-    "angular-utils-pagination": "~0.7.0"
+    "angular-utils-pagination": "~0.7.0",
+    "angular-bootstrap": "~0.13.0"
   },
   "devDependencies": {
     "masonry": "desandro/masonry#~3.3.0"

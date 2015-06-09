@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\artist as Artist;
 use App\article as Article;
 use App\image as Image;
+use Auth;
 use Request;
 
 class ArtistsController extends Controller {
@@ -61,6 +62,13 @@ class ArtistsController extends Controller {
         $artist = Artist::find($id);
         $articles = Article::join('images', 'articles.id', '=', 'images.articleID')->where('articles.artistID', '=', $id)->where('images.weight', '=', '1')->select('articles.id as articleID', 'articles.title', 'images.name as image_name')->get();
         return view('artist',['artist'=>$artist,'articles'=>$articles]);
+    }
+
+    // user page
+
+    public function getFollowArtists(){
+        $followArtists = Artist::join('follows', 'artists.id', '=', 'follows.artistID')->where('follows.userID', '=', Auth::user()->id)->select('artists.id as artistID','artists.name as name')->get();
+        return self::JSON($followArtists);
     }
 
 }

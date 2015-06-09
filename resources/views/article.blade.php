@@ -26,7 +26,7 @@
                             </li>
                         </ul>
                     </div>
-                    <br>
+                    <hr>
                     <div class="article-description">
                         {{$article->description}}
                     </div>
@@ -43,6 +43,7 @@
                     </div>
                     <br>
                     @endif
+                    <hr>
                     <div class="article-shop">
                         <ul>
                             <li>
@@ -50,16 +51,60 @@
                                     ${{$article->price}}
                                 </div>
                             </li>
-                            <li>
+                            @if (Auth::check())
+                            <li ng-show="!boolInCart">
                                 <div class="article-cart">
-                                    <button class="btn btn-default btn-md"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Add to cart</button>
+                                    <button class="btn btn-default btn-md" ng-click="addToCart({{$article->id}})"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Add to cart</button>
                                 </div>
                             </li>
+                            <li ng-show="boolInCart">
+                                <div class="article-cart">
+                                    <button class="btn btn-default btn-md" disabled><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Added to cart</button>
+                                </div>
+                            </li>
+                            @else
+                            <li>
+                                <div class="article-cart">
+                                    <a class="btn btn-default btn-md" href="/auth/login"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Add to cart</a>
+                                </div>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                     <br>
-                    <div class="article-likes">
-                        <i class="glyphicon glyphicon-heart"></i> {{$article->likes}}
+                    <div class="article-icons">
+                        <ul>
+                            @if (Auth::check())
+                            <li ng-show="!boolInLike">
+                                <div class="article-likes" ng-click="addToLike({{$article->id}})">
+                                    <i class="glyphicon glyphicon-heart"></i> {{$article->likes}} likes
+                                </div>
+                            </li>
+                            <li ng-show="boolInLike">
+                                <div class="article-likes article-like-true" ng-click="removeFromLike({{$article->id}})">
+                                    <i class="glyphicon glyphicon-heart"></i> {{$article->likes}} likes
+                                </div>
+                            </li>
+                            @else
+                            <li>
+                                <div class="article-likes">
+                                    <i class="glyphicon glyphicon-heart"></i> {{$article->likes}} likes
+                                </div>
+                            </li>
+                            @endif
+                            @if (Auth::check())
+                            <li ng-show="!boolInWishlist">
+                                <div class="article-wishlist" ng-click="addToWishlist({{$article->id}})">
+                                    <i class="glyphicon glyphicon-star"></i>wishlist
+                                </div>
+                            </li>
+                            <li ng-show="boolInWishlist">
+                                <div class="article-wishlist article-wishlist-true" ng-click="removeFromWishlist({{$article->id}})">
+                                    <i class="glyphicon glyphicon-star"></i>wishlist
+                                </div>
+                            </li>
+                            @endif
+                        </ul>
                     </div>
                 </div>
             </div>

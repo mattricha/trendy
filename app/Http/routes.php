@@ -16,6 +16,7 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
+// admin routes
 Route::group(['middleware' => 'admin'], function(){
     Route::get('articleapp','ArticleAppController@index');
     Route::resource('api/articles','ArticlesController');
@@ -32,6 +33,27 @@ Route::group(['middleware' => 'admin'], function(){
     Route::post('uploadArtist/{artistID}/{index}','UploadController@storeArtist');
 });
 
+// logged in user routes
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('user/profile/{sectionID}', 'UsersController@profilePage');
+    Route::get('user/cart', 'ArticlesController@getCartArticles');
+    Route::get('user/like', 'ArticlesController@getLikeArticles');
+    Route::get('user/wishlist', 'ArticlesController@getWishlistArticles');
+    Route::get('user/follow', 'ArtistsController@getFollowArtists');
+
+    Route::post('user/follow/add', 'FollowsController@addToFollow');
+    Route::post('user/cart/add', 'CartsController@addToCart');
+    Route::post('user/cart/remove/{articleID}', 'CartsController@removeFromCart');
+    Route::post('user/like/add', 'LikesController@addToLike');
+    Route::post('user/wishlist/add', 'WishlistsController@addToWishlist');
+    Route::post('user/follow/remove', 'FollowsController@removeFromFollow');
+    Route::post('user/cart/remove', 'CartsController@removeFromCart');
+    Route::post('user/like/remove', 'LikesController@removeFromLike');
+    Route::post('user/wishlist/remove', 'WishlistsController@removeFromWishlist');
+    Route::post('user/profile/picture','UploadController@storeUser');
+});
+
+// guest routes
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('home/articles', 'ArticlesController@homeArticles');
@@ -48,4 +70,6 @@ Route::get('browse/subtype/{subtypeID}/{page}', 'ArticlesController@getBrowseSub
 Route::get('browse/articles/{page}', 'ArticlesController@getBrowseArticles');
 Route::get('browse/articletypes', 'ArticletypesController@index');
 Route::get('browse/articlesubtypes', 'ArticlesubtypesController@index');
+
+
 

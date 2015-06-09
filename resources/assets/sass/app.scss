@@ -74,11 +74,11 @@ $zindex-overlay: 11000;
 }
 
 @mixin medium-shadow{
-    -moz-box-shadow: 0px 0px 15px 0px #000000;
-    -webkit-box-shadow: 0px 0px 15px 0px #000000;
-    -o-box-shadow: 0px 0px 15px 0px #000000;
-    box-shadow: 0px 0px 15px 0px #000000;
-    filter:progid:DXImageTransform.Microsoft.Shadow(color=#000000, Direction=NaN, Strength=15);
+    -moz-box-shadow: 0px 0px 15px 0px #333333;
+    -webkit-box-shadow: 0px 0px 15px 0px #333333;
+    -o-box-shadow: 0px 0px 15px 0px #333333;
+    box-shadow: 0px 0px 15px 0px #333333;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#333333, Direction=NaN, Strength=15);
 }
 
 @mixin large-shadow{
@@ -130,6 +130,12 @@ $zindex-overlay: 11000;
     border-radius: 100px 100px 100px 100px;
     -moz-border-radius: 100px 100px 100px 100px;
     -webkit-border-radius: 100px 100px 100px 100px;
+}
+
+@mixin artist-md-image-radius{
+    border-radius: 35px 35px 35px 35px;
+    -moz-border-radius: 35px 35px 35px 35px;
+    -webkit-border-radius: 35px 35px 35px 35px;
 }
 
 @mixin default-border{
@@ -238,6 +244,9 @@ body{
             color: $dark-color !important;
             padding: $sm-padding;
         }
+        li{
+            width: 100%;
+        }
     }
     .dropdown:hover{
         .dropdown-menu {
@@ -330,6 +339,7 @@ body{
     display: none;
     width: 80%;
     max-width: $content-width;
+    min-height: 100vh;
     margin: 0 auto;
     padding: $md-padding;
     padding-bottom:300px;
@@ -525,7 +535,7 @@ body{
     }
 }
 
-.article-images-thumbs, .browse-articles-thumbs{
+.article-images-thumbs, .browse-articles-thumbs, .browse-artists-thumbs{
     padding: $sm-padding;
     div{
         padding: $xs-padding;
@@ -605,6 +615,34 @@ body{
     }
 }
 
+.article-icons{
+    cursor: pointer;
+    @include transition-quick-ease;
+    ul{
+        margin: 0;
+        padding: 0;
+    }
+    li{
+        list-style-type: none;
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: $md-padding;
+    }
+    li:hover{
+        opacity: 0.5;
+    }
+    .article-wishlist-true{
+        i{
+            color: #CCCC00;
+        }
+    }
+    .article-like-true{
+        i{
+            color: #B80000;
+        }
+    }
+}
+
 /* artist page */
 
 .artist-details-panel{
@@ -625,48 +663,102 @@ body{
     }
 }
 
-.artist-articles-thumbs{
-    padding: $sm-padding;
-    div{
-        padding: $xs-padding;
-        margin: 0;
-    }
+.artist-md-cover{
+    margin-left: $sm-margin;
+    width: 70px;
+    height: 70px;
+    @include artist-md-image-radius;
 }
 
-.artist-articles-thumb{
+.browse-artists-thumb{
     cursor: pointer;
+    width: 70px;
+    height: 70px;
     a, a:hover, a:active{
         text-decoration: none;
         color: $primary-text-color;
     }
-    img{
-        @include transition-ease;
-        width: 100%;
-    }
-    .artist_article_top_txt{
+    @include transition-quick-ease;
+    .browse-artists-top-txt{
         @include transition-quick-ease;
         display: none;
     }
     &:hover{
-        img{
+        .artist-md-cover{
             opacity: 0.3;
         }
-        .artist_article_top_txt{
-            display: block;
+        @include transition-scale;
+        .browse-artists-top-txt{
             position: absolute;
-            top: 2px;
-            left: 2px;
-            line-height: 10px;
+            display: block;
+            line-height: 14px;
+            width: 70px;
+            bottom:13px;
         }
-        .artist_article_title{
-            font-size: $sm-font-size;
+        .browse-artists-name{
+            font-size: $md-font-size;
             font-weight: bold;
         }
-        .artist_article_artist{
-            font-size: $xs-font-size;
-            font-style: italic;
+    }
+}
+
+/* user page */
+
+.user-details-panel{
+    .user-cover{
+        margin-left: $sm-margin;
+        width: 200px;
+        height: 200px;
+        @include artist-lg-image-radius;
+    }
+
+    .user-name{
+        font-size: $xl-font-size;
+        font-weight: bold;
+    }
+
+    .user-company{
+        font-size: $md-font-size;
+    }
+
+    .user-options{
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style-type: none;
+            display: inline-block;
+            vertical-align: middle;
         }
     }
+}
+
+.user-cart-table{
+    td, th{
+        text-align: left;
+    }
+}
+
+.cart-total-txt, .cart-taxe-txt, .cart-totalWithTx-txt{
+    text-align: right;
+}
+
+.cart-totalWithTx-txt{
+    font-size: $md-font-size;
+    font-weight: bold;
+}
+
+.cart-total, .cart-taxe, .cart-totalWithTx{
+    font-weight: bold;
+}
+
+.cart-totalWithTx{
+    font-size: $xl-font-size;
+}
+
+.cart-checkout{
+    text-align: center;
 }
 
 /* album image overlay */
@@ -955,6 +1047,21 @@ v-pane-content {
             MEDIA QUERIES
 ************************************/
 
+/*==========  Non-Mobile First Method  ==========*/
+
+@media only screen and (max-width: $xmd-media-width) {
+
+    .artist-cover, .user-cover{
+        margin: 0 auto !important;
+    }
+}
+
+@media only screen and (max-width: $md-media-width) {
+
+    .homeMasonry_brick{
+        width: 50%;
+    }
+}
 
 @media only screen and (max-width: $sm-media-width) {
 
@@ -974,20 +1081,6 @@ v-pane-content {
 
     .browse-left-panel{
         @include no-shadow;
-    }
-}
-
-@media only screen and (max-width: $xmd-media-width) {
-
-    .artist-cover{
-        margin: 0 auto !important;
-    }
-}
-
-@media only screen and (max-width: $md-media-width) {
-
-    .homeMasonry_brick{
-        width: 50%;
     }
 }
 

@@ -184,12 +184,104 @@ class UploadController extends Controller {
 		} else {
 		    echo 'No header image';
 		}
-
-
-
 	}
 
+	public function storeUser($userID)
+	{
+		if (!empty( $_FILES )){
 
+		    $tempPath = $_FILES['file']['tmp_name'];
+		    $fileName = $artistID . ".jpg";
+		    $rootPublic = public_path();
+
+		// save as original size
+
+		    $uploadPath = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . $fileName;
+
+		    $uploadDirectory = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users';
+
+		    if(!is_dir($uploadDirectory)){
+		        mkdir($uploadDirectory);
+		    }
+
+		    Image::make($tempPath)->save($uploadPath);
+
+
+
+		// save as 30x30 thumbnail
+
+		    $uploadPath = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . '30x30' . DIRECTORY_SEPARATOR . $fileName;
+
+		    $uploadDirectory = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . '30x30';
+
+		    if(!is_dir($uploadDirectory)){
+		        mkdir($uploadDirectory);
+		    }
+
+		    Image::make($tempPath)->fit(30, 30)->save($uploadPath);
+
+
+
+		// save as 70x70 thumbnail
+
+		    $uploadPath = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . '70x70' . DIRECTORY_SEPARATOR . $fileName;
+
+		    $uploadDirectory = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . '70x70';
+
+		    if(!is_dir($uploadDirectory)){
+		        mkdir($uploadDirectory);
+		    }
+
+		    Image::make($tempPath)->fit(70, 70)->save($uploadPath);
+
+
+
+		// save as 200x200 thumbnail
+
+		    $uploadPath = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . '200x200' . DIRECTORY_SEPARATOR . $fileName;
+
+		    $uploadDirectory = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . '200x200';
+
+		    if(!is_dir($uploadDirectory)){
+		        mkdir($uploadDirectory);
+		    }
+
+		    Image::make($tempPath)->fit(200, 200)->save($uploadPath);
+
+			$answer = array( 'answer' => 'Profile image transfer completed' );
+		    $json = json_encode( $answer );
+		    echo $json;
+		} else {
+		    echo 'No profile image';
+		}
+
+		if ((!empty( $_FILES )) && ($index == 2)){
+
+		    $tempPath = $_FILES['file']['tmp_name'];
+		    $fileName = $artistID . ".jpg";
+		    $rootPublic = public_path();
+
+			// save as 1000x200 header
+
+		    $uploadPath = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'artists' . DIRECTORY_SEPARATOR . 'header' . DIRECTORY_SEPARATOR . $fileName;
+
+		    $uploadDirectory = $rootPublic . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'artists' . DIRECTORY_SEPARATOR . 'header';
+
+		    if(!is_dir($uploadDirectory)){
+		        mkdir($uploadDirectory);
+		    }
+
+		    Image::make($tempPath)->resize(1000, null, function($constraint){
+			    $constraint->aspectRatio();
+			})->crop(1000, 200)->save($uploadPath);
+
+			$answer = array( 'answer' => 'Header image transfer completed' );
+			$json = json_encode( $answer );
+			echo $json;
+		} else {
+		    echo 'No header image';
+		}
+	}
 
 	/**
 	 * Show the form for editing the specified resource.

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Image;
+use Auth;
 use Request;
 
 class UsersController extends Controller {
@@ -36,13 +38,6 @@ class UsersController extends Controller {
         $user = User::find($id);
         $user->name = Request::input('name');
         $user->email = Request::input('email');
-        $user->urlProfileImage = Request::input('urlProfileImage');
-        $user->cart = Request::input('cart');
-        $user->wishlist = Request::input('wishlist');
-        $user->likes = Request::input('likes');
-        $user->follow = Request::input('follow');
-        $user->history = Request::input('history');
-        $user->dateJoined = Request::input('dateJoined');
         $user->save();
 
         return $user;
@@ -56,6 +51,34 @@ class UsersController extends Controller {
     */
     public function destroy($id) {
         User::destroy($id);
+    }
+
+    // get user profile page
+    public function profilePage($sectionID){
+        // active tabs
+        $likeActive = false;
+        $wishlistActive = false;
+        $followingActive = false;
+        $cartActive = false;
+        if($sectionID == "main"){
+            $likeActive = true;
+        }
+        else if($sectionID == "like"){
+            $likeActive = true;
+        }
+        else if($sectionID == "follow"){
+            $followingActive = true;
+        }
+        else if($sectionID == "wishlist"){
+            $wishlistActive = true;
+        }
+        else if($sectionID == "cart"){
+            $cartActive = true;
+        }
+        else{
+            $likeActive = true;
+        }
+        return view('profile',['likeActive'=>$likeActive,'followingActive'=>$followingActive,'wishlistActive'=>$wishlistActive,'cartActive'=>$cartActive]);
     }
 
 }

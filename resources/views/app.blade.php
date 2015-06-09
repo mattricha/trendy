@@ -29,16 +29,16 @@
 					<li><a href="/auth/register"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Register</a></li>
 				@else
 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">{{ Auth::user()->name }} <span class="caret"></span></a>
+						<a href="/user/profile/main" class="dropdown-toggle" data-toggle="dropdown" role="button">{{ Auth::user()->name }} <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="/user/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Profile</a></li>
-							<li><a href="/user/settings"><i class="glyphicon glyphicon-cog"></i>&nbsp;Settings</a></li>
+							<li><a href="/user/profile/main"><i class="glyphicon glyphicon-user"></i>&nbsp;Profile</a></li>
+							<li><a href=""><i class="glyphicon glyphicon-cog"></i>&nbsp;Settings</a></li>
 							<li><a href="/auth/logout"><i class="glyphicon glyphicon-log-out"></i>&nbsp;Logout</a></li>
 						</ul>
 					</li>
 					<li><a href="/browse"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Browse</a></li>
-					<li><a href="/user/wishlist"><i class="glyphicon glyphicon-star"></i>&nbsp;Wishlist</a></li>
-					<li><a href="/user/cart"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Cart</a></li>
+					<li><a href="/user/profile/wishlist"><i class="glyphicon glyphicon-star"></i>&nbsp;Wishlist</a></li>
+					<li><a href="/user/profile/cart"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Cart</a></li>
 				@endif
 				@if (Auth::check())
 					@if (Auth::user()->type == 'admin')
@@ -55,11 +55,11 @@
 							<li><a href="/auth/login"><i class="glyphicon glyphicon-user"></i>&nbsp;Login</a></li>
 							<li><a href="/auth/register"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Register</a></li>
 						@else
-							<li><a href="/user/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Profile</a></li>
+							<li><a href="/user/profile/main"><i class="glyphicon glyphicon-user"></i>&nbsp;Profile</a></li>
 							<li><a href="/browse"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Browse</a></li>
-							<li><a href="/user/wishlist"><i class="glyphicon glyphicon-star"></i>&nbsp;Wishlist</a></li>
-							<li><a href="/user/cart"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Cart</a></li>
-							<li><a href="/user/settings"><i class="glyphicon glyphicon-cog"></i>&nbsp;Settings</a></li>
+							<li><a href="/user/profile/wishlist"><i class="glyphicon glyphicon-star"></i>&nbsp;Wishlist</a></li>
+							<li><a href="/user/profile/cart"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Cart</a></li>
+							<li><a href=""><i class="glyphicon glyphicon-cog"></i>&nbsp;Settings</a></li>
 							<li><a href="/auth/logout"><i class="glyphicon glyphicon-log-out"></i>&nbsp;Logout</a></li>
 						@endif
 						@if (Auth::check())
@@ -92,11 +92,11 @@
 					<div class="footer-menu-content">
 						<div class="footer-menu-left">
 							<ul>
-								<li><a href="/user/profile">Profile</a></li>
-								<li><a href="/user/cart">Cart</a></li>
-								<li><a href="/user/order">Order</a></li>
-								<li><a href="/user/wishlist">Wishlist</a></li>
-								<li><a href="/user/settings">Settings</a></li>
+								<li><a href="/user/profile/main">Profile</a></li>
+								<li><a href="/user/profile/cart">Cart</a></li>
+								<li><a href="/user/profile/wishlist">Wishlist</a></li>
+								<li><a href="/user/profile/like">Likes</a></li>
+								<li><a href="">Settings</a></li>
 							</ul>
 						</div>
 						<div class="footer-menu-middle">
@@ -104,11 +104,11 @@
 						</div>
 						<div class="footer-menu-right">
 							<ul>
-								<li><a href="/site/about">About us</a></li>
-								<li><a href="/site/contact">Contact</a></li>
-								<li><a href="/site/info">Information</a></li>
-								<li><a href="/site/faq">FAQ</a></li>
-								<li><a href="/site/legal">Legal</a></li>
+								<li><a href="">About us</a></li>
+								<li><a href="">Contact</a></li>
+								<li><a href="">Information</a></li>
+								<li><a href="">FAQ</a></li>
+								<li><a href="">Legal</a></li>
 							</ul>
 						</div>
 					</div>
@@ -124,5 +124,15 @@
 
 	<script src="/assets/js/app.min.js"></script>
 
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-63550778-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
 </body>
 </html>
